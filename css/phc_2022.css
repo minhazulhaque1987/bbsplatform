@@ -143,6 +143,16 @@
   overflow: hidden; cursor: pointer;
   transition: transform .15s, box-shadow .15s;
 }
+.phc-premium-card {
+  position: relative;
+}
+.phc-premium-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 4px;
+  background: linear-gradient(90deg, #FFB300, #29B6F6, #66BB6A);
+}
 .phc-upz-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
 .phc-upz-card:active { transform: scale(.98); }
 .phc-upz-card-top {
