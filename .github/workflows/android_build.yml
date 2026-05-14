@@ -8,19 +8,30 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
 
+      - name: Setup Java 21 # এই নতুন স্টেপটি জাভার সমস্যা সমাধান করবে
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin' # এটি একটি স্ট্যান্ডার্ড এবং নির্ভরযোগ্য জাভা ডিস্ট্রিবিউশন
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
+      - name: Prepare Web Assets
+        run: |
+          mkdir -p www
+          cp -r * www || true
+
       - name: Install Dependencies
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          # নিশ্চিত করা যে সব ফাইল ফ্রেশ ভাবে তৈরি হচ্ছে
-          rm -rf android 
+          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir www || true
+          rm -rf android
           npx cap add android
 
-      - name: Sync and Update Capacitor
+      - name: Sync and Update
         run: |
           npx cap copy
           npx cap update
