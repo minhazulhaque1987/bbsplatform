@@ -3,6 +3,7 @@ on: [push]
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
   build:
@@ -11,36 +12,44 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
 
+      # প্রথমে জাভা সেটআপ করা অত্যন্ত জরুরি
       - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'gradle'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install Assets Generator
-        run: npm install @capacitor/assets
-
-      - name: Prepare Web Assets & Generate Icons
+      - name: Prepare Web Assets
         run: |
-          mkdir -p www
-          cp -r * www || true
-          # আপনার assets ফোল্ডারে icon.png ফাইলটি থাকতে হবে
-          npx capacitor-assets generate --android
+          mkdir -p dist
+          cp index.html dist/ || true
+          # আপনার assets ফোল্ডারে icon.png থাকলে তা কপি হবে
+          if [ -d "assets" ]; then cp -r assets dist/; fi
 
-      - name: Install Capacitor Dependencies
+      - name: Install Dependencies
         run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir www || true
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets
+          npx cap init "BBS Platform" "com.minhaz.bbsplatform" --web-dir dist || true
+
+      - name: Generate Icons
+        run: |
+          # যদি assets/icon.png থাকে তবেই এটি রান করবে
+          if [ -f "assets/icon.png" ]; then
+            npx capacitor-assets generate --android
+          else
+            echo "Icon not found in assets/icon.png. Skipping icon generation."
+          fi
+
+      - name: Build Android Project
+        run: |
           rm -rf android
           npx cap add android
-
-      - name: Sync and Update
-        run: |
           npx cap copy
           npx cap update
 
@@ -48,6 +57,8 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
+          # গ্র্যাডলকে জাভা হোম চিনিয়ে দেওয়া
+          export JAVA_HOME=$JAVA_HOME_21_X64
           ./gradlew assembleDebug
 
       - name: Upload APK
