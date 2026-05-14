@@ -59,6 +59,13 @@
             </div>
             <div class="ferr" id="l-pass-e">পাসওয়ার্ড সঠিক নয়</div>
           </div>
+          <label class="remember-row" for="l-remember">
+            <input id="l-remember" type="checkbox">
+            <span>Remember me</span>
+          </label>
+          <div class="forgot-wrap">
+            <a class="forgot-link" onclick="recoverPasswordByEmailOrId()">পাসওয়ার্ড ভুলে গেছেন?</a>
+          </div>
           <button class="abtn abtn-navy" id="l-btn" onclick="doLogin()">লগইন করুন</button>
           <div class="adivider"><span>অথবা</span></div>
           <button class="abtn-ghost" onclick="authTab('signup')">✏️ নতুন অ্যাকাউন্ট তৈরি করুন</button>
@@ -188,10 +195,10 @@
               <div class="dash-mod-lbl">প্রোফাইল</div>
               <div class="dash-mod-sub">তথ্য আপডেট</div>
             </div>
-            <div class="dash-mod" onclick="goView('v-surveys')">
-              <div class="dash-mod-ico" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">📋</div>
-              <div class="dash-mod-lbl">সাম্প্রতিক জরিপ</div>
-              <div class="dash-mod-sub">তথ্য ও অগ্রগতি</div>
+            <div class="dash-mod" onclick="goView('v-statistics')">
+              <div class="dash-mod-ico" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">📊</div>
+              <div class="dash-mod-lbl">পরিসংখ্যান</div>
+              <div class="dash-mod-sub">পরিসংখ্যান তথ্য</div>
             </div>
             <div class="dash-mod" onclick="toast('শীঘ্রই আসছে','warn')">
               <div class="dash-mod-ico" style="background:linear-gradient(135deg,#E0F7FA,#B2EBF2)">📢</div>
@@ -214,32 +221,34 @@
       </div>
       <div class="bnav">
         <button class="bni on" id="bn-home" onclick="switchTab('home')"><span class="ico">🏠</span><span class="lbl">হোম</span><div class="bni-dot"></div></button>
-        <button class="bni" id="bn-surveys" onclick="goView('v-surveys');switchTab('surveys')"><span class="ico">📋</span><span class="lbl">জরিপ</span><div class="bni-dot"></div></button>
+        <button class="bni" id="bn-surveys" onclick="goView('v-statistics');switchTab('surveys')"><span class="ico">📊</span><span class="lbl">পরিসংখ্যান</span><div class="bni-dot"></div></button>
         <button class="bni" id="bn-manpower" onclick="goView('v-manpower');switchTab('manpower')"><span class="ico">👥</span><span class="lbl">জনবল</span><div class="bni-dot"></div></button>
         <button class="bni" id="bn-crop" onclick="goView('v-crop'); if(typeof initCropView==='function') initCropView(); switchTab('crop')"><span class="ico">🌾</span><span class="lbl">ক্রপ ক্যা.</span><div class="bni-dot"></div></button>
         <button class="bni" id="bn-profile" onclick="goView('v-profile');switchTab('profile')"><span class="ico">👤</span><span class="lbl">প্রোফাইল</span><div class="bni-dot"></div></button>
       </div>
     </div>
 
-    <div class="view" id="v-surveys">
+    <div class="view" id="v-statistics">
       <div class="ph">
         <div class="ph-row">
           <button class="ph-back" onclick="goView('v-dash')">‹</button>
-          <div class="ph-title">সাম্প্রতিক জরিপ তথ্য</div>
-          <div style="width:34px"></div>
-        </div>
-        <div class="ph-sub">বিবিএস পরিচালিত জরিপ ও অগ্রগতি</div>
-      </div>
-      <div class="scroll" style="padding-top:16px">
-        <div class="stat-grid">
-          <div class="stat-box"><span class="v">৩</span><span class="l">চলমান জরিপ</span></div>
-          <div class="stat-box"><span class="v">৪৫%</span><span class="l">গড় অগ্রগতি</span></div>
-          <div class="stat-box"><span class="v">২১</span><span class="l">সম্পন্ন</span></div>
-        </div>
-        <div id="all-survey-cards"></div>
-        <div style="height:16px"></div>
-      </div>
+            <div class="ph-title">পরিসংখ্যান তথ্য</div>
+            <div style="width:34px"></div>
+          </div>
+          <div class="ph-sub">বিবিএস-এর অনলাইন পরিসংখ্যান তথ্য</div>
     </div>
+        <div class="scroll" style="padding-top:16px">
+          <div class="stat-grid">
+            <div class="stat-box"><span class="v">৪</span><span class="l">চলমান পরিসংখ্যান</span></div>
+            <div class="stat-box"><span class="v">৪৫%</span><span class="l">গড় অগ্রগতি</span></div>
+            <div class="stat-box"><span class="v">২১</span><span class="l">সম্পন্ন</span></div>
+          </div>
+          <div id="all-statistics-cards"></div>
+          <div style="height:16px"></div>
+        </div>
+      </div>
+      <div class="pst"><span class="v" id="ps-surveys">—</span><span class="l">পরিসংখ্যান</span></div>
+      <div class="mgrp-ttl">পরিসংখ্যান ও ডেটা</div>
 
     <div class="view" id="v-manpower">
       <div class="ph">
@@ -505,16 +514,15 @@
         </div>
       </div>
       <div class="scroll xv-scroll">
-        <div class="xv-stats" id="arch-stats"></div>
-        <div class="xv-filter">
-          <select id="arch-month-sel" onchange="renderArchive()">
-            <option value="all">সকল মাস</option>
-          </select>
-          <select id="arch-year-sel" onchange="renderArchive()">
-            <option value="all">সকল বছর</option>
-          </select>
-        </div>
-        <div id="arch-list"></div>
+        <button class="xv-bbs-link" onclick="openBbsPublishedReports()">
+          <span class="xv-bbs-top">
+            <span class="xv-bbs-icon">📊</span>
+            <span class="xv-bbs-badge">Official</span>
+          </span>
+          <span class="xv-bbs-link-title">বিবিএস এর প্রকাশিত প্রতিবেদন</span>
+          <span class="xv-bbs-link-sub">অফিসিয়াল ওয়েবসাইটে দেখুন</span>
+          <span class="xv-bbs-cta">এখনই দেখুন ↗</span>
+        </button>
       </div>
     </div>
 
@@ -578,6 +586,7 @@
 <!-- ═══════════ CORE SCRIPTS ═══════════ -->
 <script src="js/SURVEYS.js"></script>
 <script src="js/currentView.js"></script>
+<script src="js/deviceBack.js"></script>
 <script src="js/TOAST.js"></script>
 <script src="js/data.js"></script>
 
