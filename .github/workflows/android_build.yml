@@ -3,6 +3,8 @@ on: [push]
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # নিচের লাইনটি যোগ করলে পুরনো ভার্সনের ওয়ার্নিংগুলো ইগনোর হবে
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true 
 
 jobs:
   build:
