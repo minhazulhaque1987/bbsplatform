@@ -6,17 +6,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source
-        uses: actions/checkout@v4 # v4 আপডেট করা হয়েছে
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4 # v4 আপডেট করা হয়েছে
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22 # এখানে ১৮ থেকে বাড়িয়ে ২২ করা হয়েছে
 
       - name: Install Dependencies
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap add android || true # যদি অলরেডি থাকে তাই এরর এড়াতে true
+          # যদি android ফোল্ডার না থাকে তবেই add করবে
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
 
       - name: Sync Web Assets
         run: npx cap copy
@@ -28,7 +31,7 @@ jobs:
           ./gradlew assembleDebug
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4 # এখানে v4 ব্যবহার করা হয়েছে
+        uses: actions/upload-artifact@v4
         with:
           name: my-app-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
