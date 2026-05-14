@@ -2,8 +2,8 @@ name: Build Android APK
 on: [push]
 
 env:
+  # গিটহাব অ্যাকশনসকে আধুনিক Node.js 24 ব্যবহার করতে বাধ্য করবে (ওয়ার্নিং দূর হবে)
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
   build:
@@ -12,7 +12,6 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
 
-      
       - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
@@ -25,45 +24,48 @@ jobs:
         with:
           node-version: 22
 
-      - name: Prepare Web Assets
+      - name: Prepare Web Assets (Size Optimization)
         run: |
-          mkdir -p www
-          cp index.html www/ || true
-          if [ -d "css" ]; then cp -r css www/; fi
-          if [ -d "js" ]; then cp -r js www/; fi
-          if [ -d "resources" ]; then cp -r resources www/; fi
-          if [ -d "config" ]; then cp -r config www/; fi
-          if [ -d "assets" ]; then cp -r assets www/; fi
+          # শুধু প্রয়োজনীয় ফাইলগুলো আলাদা করা হচ্ছে যাতে অ্যাপের সাইজ ছোট থাকে
+          mkdir -p dist
+          cp index.html dist/ || true
+          # আপনার যদি assets ফোল্ডারে icon.png থাকে তা কপি হবে
+          if [ -d "assets" ]; then cp -r assets dist/; fi
+          # আপনার সিএসএস বা জেএস ফাইলগুলো থাকলে নিচের লাইনগুলো আনকমেন্ট করতে পারেন
+          # cp -r css dist/ || true
+          # cp -r js dist/ || true
 
       - name: Install Dependencies
         run: |
-          npm install
-          # Ensure Capacitor CLI and Assets tool are available
-          npm install @capacitor/cli @capacitor/core @capacitor/android @capacitor/assets
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets
+          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir dist || true
 
       - name: Generate Icons
         run: |
+          # যদি assets/icon.png ফাইলটি থাকে তবেই এটি রান করবে
           if [ -f "assets/icon.png" ]; then
             npx capacitor-assets generate --android
           else
-            echo "Icon not found in assets/icon.png. Skipping icon generation."
+            echo "Icon not found. Using default icon."
           fi
 
-      - name: Sync Android Project
+      - name: Build Android Project
         run: |
-          # Use sync to copy web assets and update native dependencies
-          npx cap sync android
+          rm -rf android
+          npx cap add android
+          npx cap copy
+          npx cap update
 
       - name: Build APK
         run: |
           cd android
           chmod +x gradlew
-          # Ensure correct Java version is used
+          # নিশ্চিত করা হচ্ছে যেন Java 21 ব্যবহার হয়
           export JAVA_HOME=$JAVA_HOME_21_X64
           ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: BBS-Platform-Debug-APK
+          name: my-app-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
