@@ -1,7 +1,16 @@
-- name: Generate Icons and Splash
+# ... আগের স্টেপগুলো (Checkout, Setup Java/Node) ...
+
+      - name: Prepare Assets
         run: |
-          # আইকন জেনারেটর টুল ইনস্টল
-          npm install @capacitor/assets --save-dev
+          mkdir -p www
+          cp -r * www || true
           
-          # আইকন জেনারেট করা (এটি অটোমেটিক সব সাইজ তৈরি করে দেবে)
+          # আইকন জেনারেটর রান করা
+          npm install @capacitor/assets
           npx capacitor-assets generate --android
+
+      - name: Sync and Build
+        run: |
+          npx cap copy
+          npx cap update
+          cd android && ./gradlew assembleDebug
