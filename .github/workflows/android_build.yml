@@ -1,21 +1,62 @@
-- name: Prepare Web Assets & Generate Icons
+name: Build Android APK
+on: [push]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare Web Assets (Size Optimization)
         run: |
-          # শুধু প্রয়োজনীয় ফাইলগুলো কপি করা (অপ্রয়োজনীয় ফাইল বাদ দিয়ে)
+          # শুধু প্রয়োজনীয় ফাইলগুলো আলাদা করা হচ্ছে যাতে অ্যাপের সাইজ ছোট থাকে
           mkdir -p dist
           cp index.html dist/ || true
           cp -r assets dist/ || true
-          # এখানে আপনার অন্য প্রয়োজনীয় ফোল্ডার বা ফাইল (যেমন CSS/JS) যোগ করুন
-          
-      - name: Install Capacitor Dependencies
-        run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          # web-dir এখন 'dist' ফোল্ডারকে নির্দেশ করবে যা শুধু আপনার কোড ধারণ করে
-          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir dist || true
-          rm -rf android
-          npx cap add android
+          # আপনার যদি আলাদা স্টাইল বা স্ক্রিপ্ট ফোল্ডার থাকে তবে নিচের লাইনগুলো আনকমেন্ট করুন
+          # cp -r css dist/ || true
+          # cp -r js dist/ || true
 
+      - name: Install Dependencies
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets
+          # web-dir হিসেবে dist ফোল্ডারকে ব্যবহার করা হচ্ছে
+          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir dist || true
+          
       - name: Generate Icons
         run: |
-          npm install @capacitor/assets
-          # শুধু অ্যান্ড্রয়েডের জন্য আইকন তৈরি
+          # আইকন জেনারেট করা
           npx capacitor-assets generate --android
+
+      - name: Build Android Project
+        run: |
+          rm -rf android
+          npx cap add android
+          npx cap copy
+          npx cap update
+
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-app-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
