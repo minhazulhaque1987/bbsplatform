@@ -33,16 +33,19 @@
     if (shouldSkipRapidTap()) return;
 
     const current = typeof window.getCurrentView === 'function' ? window.getCurrentView() : null;
-    if (current === 'v-dash') {
+    const canBack = typeof window.canGoBack === 'function' ? window.canGoBack() : false;
+
+    if (current === 'v-dash' || current === 'v-admin') {
       confirmExitFromDashboard();
       return;
     }
 
-    if (typeof window.goBack === 'function' && window.goBack()) {
+    if (canBack && typeof window.goBack === 'function') {
+      window.goBack();
       return;
     }
 
-    if (current && current !== 'v-dash' && typeof window.goView === 'function') {
+    if (current && typeof window.goView === 'function') {
       window.goView('v-dash', true);
       return;
     }
