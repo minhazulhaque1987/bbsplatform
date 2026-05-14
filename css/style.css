@@ -1220,3 +1220,83 @@ body.use-device-back .crop-back,
 body.use-device-back .pend-back {
   display: none !important;
 }
+
+/* ─── About App Section ─── */
+.about-section {
+  padding: 16px;
+}
+
+.about-intro {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.about-logo {
+  margin-bottom: 12px;
+}
+
+.about-intro h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--g800);
+  margin-bottom: 8px;
+}
+
+.about-intro p {
+  font-size: 14px;
+  color: var(--g600);
+  line-height: 1.5;
+}
+
+.about-features, .about-benefits, .about-future, .about-contact, .about-version {
+  margin-bottom: 24px;
+}
+
+.about-features h4, .about-benefits h4, .about-future h4, .about-contact h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--g800);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.about-features ul, .about-benefits ul, .about-future ul, .about-contact ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-features li, .about-benefits li, .about-future li, .about-contact li {
+  font-size: 14px;
+  color: var(--g600);
+  line-height: 1.6;
+  margin-bottom: 8px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.about-features li:before, .about-benefits li:before, .about-future li:before, .about-contact li:before {
+  content: "•";
+  color: var(--navy);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.about-version {
+  background: var(--g100);
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.about-version p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: var(--g600);
+}
+
+.about-version p strong {
+  color: var(--g800);
+}

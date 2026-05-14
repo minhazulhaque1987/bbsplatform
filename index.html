@@ -210,10 +210,10 @@
               <div class="dash-mod-lbl">পরিপত্র ও নোটিশ</div>
               <div class="dash-mod-sub">সদর দপ্তর হতে</div>
             </div>
-            <div class="dash-mod" onclick="goView('v-training')">
+            <div class="dash-mod" onclick="goView('v-about-app')">
               <div class="dash-mod-ico" style="background:linear-gradient(135deg,#E0F2F1,#B2DFDB)">🎓</div>
-              <div class="dash-mod-lbl">প্রশিক্ষণ</div>
-              <div class="dash-mod-sub">আসন্ন সভা/কোর্স</div>
+              <div class="dash-mod-lbl">আমাদের সম্পর্কে</div>
+              <div class="dash-mod-sub">বিস্তারিত তথ্য</div>
             </div>
           </div>
         </div>
@@ -325,7 +325,7 @@
           <div class="mgrp-ttl">সহায়তা</div>
           <div class="mlist">
             <button class="mrow" onclick="toast('ফোন: 02-9127215','')"><div class="mr-ico" style="background:#FCE4EC">📞</div><span class="mr-lbl">হেল্পলাইন</span><span class="mr-arr">›</span></button>
-            <button class="mrow" onclick="toast('BBS কর্মী প্ল্যাটফর্ম v1.0','')"><div class="mr-ico" style="background:#FFF8E1">ℹ️</div><span class="mr-lbl">অ্যাপ সম্পর্কে</span><span style="font-size:10px;color:var(--g400)">v1.0</span><span class="mr-arr">›</span></button>
+            <button class="mrow" onclick="goView('v-about-app')"><div class="mr-ico" style="background:#FFF8E1">ℹ️</div><span class="mr-lbl">আমাদের সম্পর্কে</span><span style="font-size:10px;color:var(--g400)">v1.0</span><span class="mr-arr">›</span></button>
           </div>
         </div>
         <div style="padding:14px 16px 24px">
@@ -549,8 +549,8 @@
       <div class="xv-header xv-train">
         <button class="xv-back" onclick="goView('v-dash')">‹</button>
         <div class="xv-title">
-          <div class="xv-title-main">🎓 প্রশিক্ষণ ক্যালেন্ডার</div>
-          <div class="xv-title-sub">আসন্ন সভা ও কোর্স</div>
+          <div class="xv-title-main">🎓 আমাদের সম্পর্কে</div>
+          <div class="xv-title-sub">বিস্তারিত তথ্য</div>
         </div>
       </div>
       <div class="scroll xv-scroll">
@@ -560,6 +560,82 @@
           <button class="xv-tab" onclick="filterTrain('all', this)">সকল</button>
         </div>
         <div id="train-list"></div>
+      </div>
+    </div>
+
+    <div class="view" id="v-about-app">
+      <div class="ph">
+        <div class="ph-row">
+          <button class="ph-back" onclick="goView('v-profile')">‹</button>
+          <div class="ph-title">আমাদের সম্পর্কে</div>
+          <div style="width:34px"></div>
+        </div>
+        <div class="ph-sub">BBS কর্মী প্ল্যাটফর্ম v1.0</div>
+      </div>
+      <div class="scroll">
+        <div class="about-section">
+          <div class="about-intro">
+            <div class="about-logo">
+              <img src="./resources/BBS Logo.svg" alt="BBS Logo" style="width: 60px; height: 60px; object-fit: contain;">
+            </div>
+            <h3>BBS Platform</h3>
+            <p>Bangladesh Bureau of Statistics (BBS) এর অফিসিয়াল মোবাইল অ্যাপ্লিকেশন। এই প্ল্যাটফর্মটি BBS কর্মীদের দৈনন্দিন কাজকে আরও সহজ, দক্ষ এবং সংগঠিত করে তোলে।</p>
+          </div>
+
+          <div class="about-features">
+            <h4>🔧 প্রধান ফিচারসমূহ</h4>
+            <ul>
+              <li><strong>জনশুমারি ও গৃহগণনা ২০২২:</strong> জেলা ডেটাবেইজ অ্যাক্সেস এবং তথ্য ব্যবস্থাপনা</li>
+              <li><strong>ক্রপ ক্যালেন্ডার:</strong> ফসলের প্রতিবেদন প্রেরণের সময়সূচী এবং রিমাইন্ডার</li>
+              <li><strong>জনবল:</strong> নিবন্ধিত কর্মী তালিকা এবং বিস্তারিত প্রোফাইল</li>
+              <li><strong>প্রোফাইল:</strong> ব্যক্তিগত তথ্য আপডেট এবং অ্যাকাউন্ট ব্যবস্থাপনা</li>
+              <li><strong>পরিসংখ্যান:</strong> অনলাইন পরিসংখ্যান তথ্য এবং রিপোর্ট</li>
+              <li><strong>প্রকাশনা:</strong> প্রকাশিত প্রতিবেদনের আর্কাইভ</li>
+              <li><strong>পরিপত্র ও নোটিশ:</strong> সদর দপ্তর হতে প্রকাশিত অফিসিয়াল নথি</li>
+              <li><strong>প্রশিক্ষণ:</strong> আসন্ন সভা এবং প্রশিক্ষণ কোর্সের তালিকা</li>
+            </ul>
+          </div>
+
+          <div class="about-benefits">
+            <h4>✨ সুবিধাসমূহ</h4>
+            <ul>
+              <li><strong>দক্ষতা বৃদ্ধি:</strong> একটি প্ল্যাটফর্মে সকল প্রয়োজনীয় টুলসমূহ</li>
+              <li><strong>রিয়েল-টাইম অ্যাক্সেস:</strong> যেকোনো সময় এবং যেকোনো স্থান থেকে তথ্য অ্যাক্সেস</li>
+              <li><strong>সহজ নেভিগেশন:</strong> ইন্টুইটিভ ইউজার ইন্টারফেস এবং বাংলা ভাষা সমর্থন</li>
+              <li><strong>সিকিউরিটি:</strong> নিরাপদ লগইন এবং ডেটা প্রোটেকশন</li>
+              <li><strong>অফলাইন সাপোর্ট:</strong> কিছু ফিচার অফলাইনে ব্যবহারযোগ্য</li>
+            </ul>
+          </div>
+
+          <div class="about-future">
+            <h4>🚀 ভবিষ্যত পরিকল্পনা</h4>
+            <p>আমরা ক্রমাগত BBS Platform-কে উন্নত করার জন্য কাজ করছি। আসন্ন আপডেটগুলোতে অন্তর্ভুক্ত থাকবে:</p>
+            <ul>
+              <li>উন্নত ডেটা ভিজুয়ালাইজেশন এবং অ্যানালিটিক্স</li>
+              <li>মোবাইল অ্যাপের জন্য নতুন ফিচার যোগ</li>
+              <li>থার্ড-পার্টি ইন্টিগ্রেশন (যেমন GIS ম্যাপিং)</li>
+              <li>ইউজার ফিডব্যাক ভিত্তিক উন্নতি এবং বাগ ফিক্স</li>
+              <li>পারফরম্যান্স অপটিমাইজেশন এবং নতুন ডিভাইস সমর্থন</li>
+            </ul>
+          </div>
+
+          <div class="about-contact">
+            <h4>📞 যোগাযোগ</h4>
+            <p>কোনো প্রশ্ন বা সহায়তার জন্য যোগাযোগ করুন:</p>
+            <ul>
+              <li><strong>হেল্পলাইন:</strong> ০১৮১৮-১০৫৮০১</li>
+              <li><strong>ইমেইল:</strong> minhazulhaque1987@gmail.com</li>
+              <li><strong>ভিজিট:</strong> www.facebook.com/Minlab.bd</li>
+            </ul>
+          </div>
+
+          <div class="about-version">
+            <p><strong>ভার্সন:</strong> ৭.৪.৫</p>
+            <p><strong>রিলিজ তারিখ:</strong> ২০২৬</p>
+            <p><strong>ডেভেলপার:</strong> M!N L@b</p>
+          </div>
+        </div>
+        <div style="height:24px"></div>
       </div>
     </div>
 
