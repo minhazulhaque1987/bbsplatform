@@ -1,7 +1,8 @@
 /* ═══════════ VIEW HOOKS ═══════════ */
 const origGoView = goView;
-window.goView = function(id, back=false) {
-  origGoView(id, back);
+window.goView = function() {
+  const id = arguments[0];
+  origGoView.apply(this, arguments);
   if(id==='v-profile') { openProfileEdit(); }
   if(id==='v-profile-edit') { openProfileEdit(); }
   if(id==='v-admin')   { renderAdminPanel(); }

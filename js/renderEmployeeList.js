@@ -60,3 +60,6 @@ function filterEmp(type, btn) {
   btn.classList.add('on');
   renderEmployeeList();
 }
+
+// Expose globally
+window.renderEmployeeList = renderEmployeeList;

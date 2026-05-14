@@ -16,6 +16,7 @@ function searchPositions(query) {
   if (!query || query.length < 1) return [];
 
   const lowerQuery = query.toLowerCase();
+  console.log('Searching positions with query:', lowerQuery);
 
   return bbsPositions.filter(position => {
     return position.bn.toLowerCase().includes(lowerQuery) ||
@@ -30,7 +31,12 @@ function searchPositions(query) {
  */
 function renderPositionDropdown(positions, dropdownId) {
   const dropdown = document.getElementById(dropdownId);
-  if (!dropdown) return;
+  if (!dropdown) {
+    console.error('Dropdown not found:', dropdownId);
+    return;
+  }
+
+  console.log('Rendering dropdown:', dropdownId, 'with', positions.length, 'positions');
 
   if (positions.length === 0) {
     dropdown.innerHTML = `<div class="position-dropdown-item" style="padding:12px;text-align:center;color:#999;font-family:'Noto Sans Bengali',sans-serif">❌ কোনো ফলাফল পাওয়া যায়নি</div>`;
@@ -116,9 +122,12 @@ function setupPositionAutocomplete(inputId, dropdownId) {
     return;
   }
 
+  console.log('Position autocomplete setup for:', inputId, dropdownId);
+
   // Input event - search as user types
   input.addEventListener('input', function(e) {
     const query = e.target.value.trim();
+    console.log('Position input event:', query);
     selectedPosition = null;
     delete input.dataset.selectedEn;
     delete input.dataset.selectedGrade;
@@ -129,6 +138,7 @@ function setupPositionAutocomplete(inputId, dropdownId) {
     }
 
     filteredPositions = searchPositions(query);
+    console.log('Filtered positions:', filteredPositions.length);
     highlightedPositionIndex = -1;
     renderPositionDropdown(filteredPositions, dropdownId);
   });

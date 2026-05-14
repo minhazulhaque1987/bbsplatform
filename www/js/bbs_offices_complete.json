@@ -1,0 +1,276 @@
+{
+    "headquarters": [
+        {
+            "bn": "এগ্রিকালচার উইং",
+            "en": "Agriculture Wing"
+        },
+        {
+            "bn": "সেন্সাস উইং",
+            "en": "Census Wing"
+        },
+        {
+            "bn": "কম্পিউটার উইং",
+            "en": "Computer Wing"
+        },
+        {
+            "bn": "ডেমোগ্রাফি এন্ড হেলথ উইং",
+            "en": "Demography and Health Wing"
+        },
+        {
+            "bn": "ইন্ডাস্ট্রি এন্ড লেবার উইং",
+            "en": "Industry and Labor Wing"
+        },
+        {
+            "bn": "ন্যাশনাল অ্যাকাউন্টিং উইং",
+            "en": "National Accounting Wing"
+        },
+        {
+            "bn": "এফএ এন্ড এমআইএস উইং",
+            "en": "FA & MIS Wing"
+        },
+        {
+            "bn": "স্ট্যাটিস্টিকাল স্ট্যান্ডার্ডস এন্ড মেথডোলজি উইং",
+            "en": "Statistical Standards and Methodology Wing"
+        },
+        {
+            "bn": "বাংলাদেশ পরিসংখ্যান প্রশিক্ষণ একাডেমি (বিএসটিএ)",
+            "en": "Bangladesh Statistical Training Academy (BSTA)"
+        }
+    ],
+    "divisions": [
+        {
+            "division_bn": "চট্টগ্রাম",
+            "division_en": "Chattogram",
+            "districts": [
+                {
+                    "district_bn": "চট্টগ্রাম",
+                    "district_en": "Chattogram",
+                    "upazilas": [
+                        {
+                            "bn": "আনোয়ারা",
+                            "en": "Anwara"
+                        },
+                        {
+                            "bn": "বাঁশখালী",
+                            "en": "Banshkhali"
+                        },
+                        {
+                            "bn": "বোয়ালখালী",
+                            "en": "Boalkhali"
+                        },
+                        {
+                            "bn": "চন্দনাইশ",
+                            "en": "Chandanaish"
+                        },
+                        {
+                            "bn": "ফটিকছড়ি",
+                            "en": "Fatikchhari"
+                        },
+                        {
+                            "bn": "হাটহাজারী",
+                            "en": "Hathazari"
+                        },
+                        {
+                            "bn": "লোহাগাড়া",
+                            "en": "Lohagara"
+                        },
+                        {
+                            "bn": "মিরসরাই",
+                            "en": "Mirsharai"
+                        },
+                        {
+                            "bn": "পটিয়া",
+                            "en": "Patiya"
+                        },
+                        {
+                            "bn": "রাঙ্গুনিয়া",
+                            "en": "Rangunia"
+                        },
+                        {
+                            "bn": "রাউজান",
+                            "en": "Raozan"
+                        },
+                        {
+                            "bn": "সন্দ্বীপ",
+                            "en": "Sandwip"
+                        },
+                        {
+                            "bn": "সাতকানিয়া",
+                            "en": "Satkania"
+                        },
+                        {
+                            "bn": "সীতাকুন্ড",
+                            "en": "Sitakunda"
+                        }
+                    ]
+                },
+                {
+                    "district_bn": "কক্সবাজার",
+                    "district_en": "Cox's Bazar",
+                    "upazilas": [
+                        {
+                            "bn": "চকরিয়া",
+                            "en": "Chakaria"
+                        },
+                        {
+                            "bn": "কক্সবাজার সদর",
+                            "en": "Cox's Bazar Sadar"
+                        },
+                        {
+                            "bn": "কুতুবদিয়া",
+                            "en": "Kutubdia"
+                        },
+                        {
+                            "bn": "মহেশখালী",
+                            "en": "Maheshkhali"
+                        },
+                        {
+                            "bn": "রামু",
+                            "en": "Ramu"
+                        },
+                        {
+                            "bn": "টেকনাফ",
+                            "en": "Teknaf"
+                        },
+                        {
+                            "bn": "উখিয়া",
+                            "en": "Ukhiya"
+                        },
+                        {
+                            "bn": "পেকুয়া",
+                            "en": "Pekua"
+                        }
+                    ]
+                },
+                {
+                    "district_bn": "কুমিল্লা",
+                    "district_en": "Cumilla",
+                    "upazilas": [
+                        {
+                            "bn": "বরুড়া",
+                            "en": "Barura"
+                        },
+                        {
+                            "bn": "ব্রাহ্মণপাড়া",
+                            "en": "Brahmanpara"
+                        },
+                        {
+                            "bn": "বুড়িচং",
+                            "en": "Burichang"
+                        },
+                        {
+                            "bn": "চান্দিনা",
+                            "en": "Chandina"
+                        },
+                        {
+                            "bn": "চৌদ্দগ্রাম",
+                            "en": "Chauddagram"
+                        },
+                        {
+                            "bn": "দাউদকান্দি",
+                            "en": "Daudkandi"
+                        },
+                        {
+                            "bn": "দেবিদ্বার",
+                            "en": "Debidwar"
+                        },
+                        {
+                            "bn": "হোমনা",
+                            "en": "Homna"
+                        },
+                        {
+                            "bn": "লাকসাম",
+                            "en": "Laksam"
+                        },
+                        {
+                            "bn": "মুরাদনগর",
+                            "en": "Muradnagar"
+                        },
+                        {
+                            "bn": "নাঙ্গলকোট",
+                            "en": "Nangalkot"
+                        },
+                        {
+                            "bn": "কুমিল্লা সদর",
+                            "en": "Cumilla Sadar"
+                        },
+                        {
+                            "bn": "মেঘনা",
+                            "en": "Meghna"
+                        },
+                        {
+                            "bn": "মনোহরগঞ্জ",
+                            "en": "Monohargonj"
+                        },
+                        {
+                            "bn": "সদর দক্ষিণ",
+                            "en": "Sadar South"
+                        },
+                        {
+                            "bn": "তিলপাড়া",
+                            "en": "Titas"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "division_bn": "ঢাকা",
+            "division_en": "Dhaka",
+            "districts": [
+                {
+                    "district_bn": "ঢাকা",
+                    "district_en": "Dhaka",
+                    "upazilas": [
+                        {
+                            "bn": "ধামরাই",
+                            "en": "Dhamrai"
+                        },
+                        {
+                            "bn": "দোহার",
+                            "en": "Dohar"
+                        },
+                        {
+                            "bn": "কেরানীগঞ্জ",
+                            "en": "Keraniganj"
+                        },
+                        {
+                            "bn": "নবাবগঞ্জ",
+                            "en": "Nawabganj"
+                        },
+                        {
+                            "bn": "সাভার",
+                            "en": "Savar"
+                        }
+                    ]
+                },
+                {
+                    "district_bn": "গাজীপুর",
+                    "district_en": "Gazipur",
+                    "upazilas": [
+                        {
+                            "bn": "গাজীপুর সদর",
+                            "en": "Gazipur Sadar"
+                        },
+                        {
+                            "bn": "কালিয়াকৈর",
+                            "en": "Kaliakair"
+                        },
+                        {
+                            "bn": "কালিগঞ্জ",
+                            "en": "Kaliganj"
+                        },
+                        {
+                            "bn": "কাপাসিয়া",
+                            "en": "Kapasia"
+                        },
+                        {
+                            "bn": "শ্রীপুর",
+                            "en": "Sreepur"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

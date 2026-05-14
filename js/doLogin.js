@@ -1,53 +1,72 @@
 /* ═══════════ LOGIN ═══════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  const rememberInput = document.getElementById('l-remember');
+  if (!rememberInput) return;
+  rememberInput.checked = localStorage.getItem('bbs_emp_ses_remember_v1') === '1';
+});
+
+async function recoverPasswordByEmailOrId() {
+  const identifier = window.prompt('আপনার ইউজার আইডি বা ইমেইল লিখুন:');
+  if (!identifier || !identifier.trim()) return;
+
+  try {
+    const user = await getUserByLoginIdentifier(identifier);
+    if (!user) {
+      toast('এই তথ্য দিয়ে কোন অ্যাকাউন্ট পাওয়া যায়নি', 'warn');
+      return;
+    }
+    if (!user.password) {
+      toast('এই অ্যাকাউন্টে পাসওয়ার্ড পাওয়া যায়নি', 'warn');
+      return;
+    }
+
+    window.alert('আপনার পাসওয়ার্ড: ' + user.password);
+    toast('পাসওয়ার্ড দেখানো হয়েছে', 'ok');
+  } catch (error) {
+    console.error('Password recovery failed:', error);
+    toast('পাসওয়ার্ড রিকভার করা যায়নি', 'err');
+  }
+}
+
 async function doLogin() {
   clearErrs();
   const raw = document.getElementById('l-user').value.trim();
   const pw  = document.getElementById('l-pass').value;
+  const remember = !!document.getElementById('l-remember')?.checked;
   if(!raw){ setErr('l-user','l-user-e','আইডি বা ইমেইল লিখুন'); return }
   if(!pw)  { setErr('l-pass','l-pass-e','পাসওয়ার্ড লিখুন'); return }
 
-  // Try to find user by different identifiers
-  let user = null;
-
-  // Check if it's an email
-  if (raw.includes('@')) {
-    user = await getUserByEmail(raw);
-  } else if (/^\d{11}$/.test(raw)) {
-    // Check if it's a phone number
-    user = await getUserByPhone(raw);
-  } else {
-    // Check if it's a userId or admin
-    user = await getUserById(raw === 'admin' ? 'ADMIN' : raw);
-  }
-
-  if(!user){
-    // Fallback: get all users and search manually (less efficient but works)
-    const users = await getUsers();
-    user = users.find(u=>
-      u.email.toLowerCase()===raw.toLowerCase() ||
-      u.phone===raw ||
-      (u.userId && u.userId.toLowerCase()===raw.toLowerCase()) ||
-      raw==='admin'&&u.role==='admin'
-    );
-  }
-
-  if(!user){ setErr('l-user','l-user-e','কোনো অ্যাকাউন্ট পাওয়া যায়নি'); return }
-  if(user.password!==pw){ setErr('l-pass','l-pass-e','পাসওয়ার্ড সঠিক নয়'); return }
-  if(user.status==='pending'){
-    showPending(user);
-    return;
-  }
-  if(user.status==='rejected'){
-    setErr('l-user','l-user-e','আপনার আবেদন প্রত্যাখ্যাত হয়েছে');
-    return;
-  }
   const btn = document.getElementById('l-btn');
-  btn.textContent = '✓ লগইন হচ্ছে...';
-  setTimeout(()=>{
-    btn.textContent = 'লগইন করুন';
-    saveSes(user);
+  btn.disabled = true;
+  btn.textContent = '✓ যাচাই করা হচ্ছে...';
+
+  try {
+    const user = await checkUserCredentials(raw, pw);
+    if(!user){
+      setErr('l-user','l-user-e','কোনো অ্যাকাউন্ট পাওয়া যায়নি');
+      return;
+    }
+    if(user.status==='pending'){
+      showPending(user);
+      return;
+    }
+    if(user.status==='rejected'){
+      setErr('l-user','l-user-e','আপনার আবেদন প্রত্যাখ্যাত হয়েছে');
+      return;
+    }
+
+    saveSes(user, remember);
+    if (typeof setCurrentUser === 'function') {
+      setCurrentUser(user);
+    }
     applyUser(user);
-    goView('v-dash');
+    goView(user.role === 'admin' ? 'v-admin' : 'v-dash');
     toast('স্বাগতম, '+user.name+'! 🎉','ok');
-  }, 900);
+  } catch (err) {
+    console.error('Login error:', err);
+    setErr('l-user','l-user-e','লগইন ব্যর্থ হয়েছে, আবার চেষ্টা করুন');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'লগইন করুন';
+  }
 }

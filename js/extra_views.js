@@ -13,6 +13,13 @@ const BN_MONTHS_X = ['জানুয়ারি','ফেব্রুয়া�
 /* ─────────────────────────────────────────────
    1) প্রতিবেদন আর্কাইভ — submitted reports history
    ───────────────────────────────────────────── */
+const BBS_PUBLISHED_REPORTS_URL = 'https://bbs.gov.bd/pages/static-pages/6922e07a933eb65569e27407';
+
+function openBbsPublishedReports() {
+  const ref = window.open(BBS_PUBLISHED_REPORTS_URL, '_blank', 'noopener,noreferrer');
+  if (!ref) window.location.href = BBS_PUBLISHED_REPORTS_URL;
+}
+
 function renderArchive(){
   const host = document.getElementById('arch-list');
   const stats = document.getElementById('arch-stats');
