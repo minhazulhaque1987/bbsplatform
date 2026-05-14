@@ -43,8 +43,8 @@ function applyUser(u) {
   setAvatarAll(u);
 
   // render dash surveys
-  renderDashSurveys();
-  renderAllSurveys();
+  if (typeof renderDashStatistics === 'function') renderDashStatistics();
+  if (typeof renderAllStatistics === 'function') renderAllStatistics();
   renderEmployeeList();
 
   // ── Crop calendar ─────────────────────────────────────────────────────
