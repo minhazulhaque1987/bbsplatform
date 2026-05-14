@@ -1,0 +1,233 @@
+{
+  "1": {
+    "Chakaria": {
+      "name_en": "Chakaria",
+      "area_sq_km": null,
+      "pop_total_2022": 94398,
+      "wards": [
+        {
+          "name": "Ward No. 01",
+          "area_sq_km": null,
+          "pop_total_2022": 8525
+        },
+        {
+          "name": "Ward No. 02",
+          "area_sq_km": null,
+          "pop_total_2022": 12533
+        },
+        {
+          "name": "Ward No. 03",
+          "area_sq_km": null,
+          "pop_total_2022": 11498
+        },
+        {
+          "name": "Ward No. 04",
+          "area_sq_km": null,
+          "pop_total_2022": 13007
+        },
+        {
+          "name": "Ward No. 05",
+          "area_sq_km": null,
+          "pop_total_2022": 9256
+        },
+        {
+          "name": "Ward No. 06",
+          "area_sq_km": null,
+          "pop_total_2022": 9944
+        },
+        {
+          "name": "Ward No. 07",
+          "area_sq_km": null,
+          "pop_total_2022": 10205
+        },
+        {
+          "name": "Ward No. 08",
+          "area_sq_km": null,
+          "pop_total_2022": 11200
+        },
+        {
+          "name": "Ward No. 09",
+          "area_sq_km": null,
+          "pop_total_2022": 8230
+        }
+      ]
+    }
+  },
+  "2": {
+    "Coxs Bazar": {
+      "name_en": "Coxs Bazar",
+      "area_sq_km": null,
+      "pop_total_2022": 196385,
+      "wards": [
+        {
+          "name": "Ward No. 01",
+          "area_sq_km": null,
+          "pop_total_2022": 28337
+        },
+        {
+          "name": "Ward No. 02",
+          "area_sq_km": null,
+          "pop_total_2022": 16814
+        },
+        {
+          "name": "Ward No. 03",
+          "area_sq_km": null,
+          "pop_total_2022": 10580
+        },
+        {
+          "name": "Ward No. 04",
+          "area_sq_km": null,
+          "pop_total_2022": 16187
+        },
+        {
+          "name": "Ward No. 05",
+          "area_sq_km": null,
+          "pop_total_2022": 17747
+        },
+        {
+          "name": "Ward No. 06",
+          "area_sq_km": null,
+          "pop_total_2022": 19762
+        },
+        {
+          "name": "Ward No. 07",
+          "area_sq_km": null,
+          "pop_total_2022": 22012
+        },
+        {
+          "name": "Ward No. 08",
+          "area_sq_km": null,
+          "pop_total_2022": 13421
+        },
+        {
+          "name": "Ward No. 09",
+          "area_sq_km": null,
+          "pop_total_2022": 13722
+        },
+        {
+          "name": "Ward No. 10",
+          "area_sq_km": null,
+          "pop_total_2022": 10111
+        },
+        {
+          "name": "Ward No. 11",
+          "area_sq_km": null,
+          "pop_total_2022": 8584
+        },
+        {
+          "name": "Ward No. 12",
+          "area_sq_km": null,
+          "pop_total_2022": 19108
+        }
+      ]
+    }
+  },
+  "5": {
+    "Maheshkhali": {
+      "name_en": "Maheshkhali",
+      "area_sq_km": null,
+      "pop_total_2022": 29372,
+      "wards": [
+        {
+          "name": "Ward No. 01",
+          "area_sq_km": null,
+          "pop_total_2022": 2835
+        },
+        {
+          "name": "Ward No. 02",
+          "area_sq_km": null,
+          "pop_total_2022": 3498
+        },
+        {
+          "name": "Ward No. 03",
+          "area_sq_km": null,
+          "pop_total_2022": 4655
+        },
+        {
+          "name": "Ward No. 04",
+          "area_sq_km": null,
+          "pop_total_2022": 2401
+        },
+        {
+          "name": "Ward No. 05",
+          "area_sq_km": null,
+          "pop_total_2022": 4857
+        },
+        {
+          "name": "Ward No. 06",
+          "area_sq_km": null,
+          "pop_total_2022": 2938
+        },
+        {
+          "name": "Ward No. 07",
+          "area_sq_km": null,
+          "pop_total_2022": 1916
+        },
+        {
+          "name": "Ward No. 08",
+          "area_sq_km": null,
+          "pop_total_2022": 3631
+        },
+        {
+          "name": "Ward No. 09",
+          "area_sq_km": null,
+          "pop_total_2022": 2641
+        }
+      ]
+    }
+  },
+  "8": {
+    "Teknaf": {
+      "name_en": "Teknaf",
+      "area_sq_km": null,
+      "pop_total_2022": 26248,
+      "wards": [
+        {
+          "name": "Ward No. 01",
+          "area_sq_km": null,
+          "pop_total_2022": 3843
+        },
+        {
+          "name": "Ward No. 02",
+          "area_sq_km": null,
+          "pop_total_2022": 6404
+        },
+        {
+          "name": "Ward No.03",
+          "area_sq_km": null,
+          "pop_total_2022": 1735
+        },
+        {
+          "name": "Ward No.04",
+          "area_sq_km": null,
+          "pop_total_2022": 1726
+        },
+        {
+          "name": "Ward No.05",
+          "area_sq_km": null,
+          "pop_total_2022": 1676
+        },
+        {
+          "name": "Ward No.06",
+          "area_sq_km": null,
+          "pop_total_2022": 1461
+        },
+        {
+          "name": "Ward No.07",
+          "area_sq_km": null,
+          "pop_total_2022": 3706
+        },
+        {
+          "name": "Ward No.08",
+          "area_sq_km": null,
+          "pop_total_2022": 2335
+        },
+        {
+          "name": "Ward No.09",
+          "area_sq_km": null,
+          "pop_total_2022": 3362
+        }
+      ]
+    }
+  }
+}

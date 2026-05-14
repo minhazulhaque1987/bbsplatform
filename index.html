@@ -2,11 +2,10 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>বিবিএস প্ল্যাটফর্ম</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BBS Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/phc_2022.css">
 </head>
@@ -23,15 +22,10 @@
 
   <div class="app">
 
-    <!-- ════ SPLASH ════ -->
-    <div class="view" id="v-splash">
+    <div class="view active" id="v-splash">
       <div class="sp-logo"><img src="./resources/BBS Logo.svg" alt="BBS Logo"></div>
-      <div class="sp-title">BBS</div>
-      <div class="sp-sub">কর্মী যোগাযোগ প্ল্যাটফর্ম</div>
-      <div class="sp-bar-wrap"><div class="sp-bar"></div></div>
     </div>
 
-    <!-- ════ AUTH ════ -->
     <div class="view" id="v-auth">
       <div class="auth-hero">
         <div class="auth-brand">
@@ -39,7 +33,7 @@
             <img src="./resources/BBS Logo.svg" style="width: 100px; height: 100px; object-fit: contain; background-color: transparent; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial;">
           </div>
           <div class="auth-brand-title">Bangladesh Bureau of Statistics (BBS)</div>
-          <div class="auth-brand-sub">Official Platform</div>
+          <div class="auth-brand-sub">Welcome To BBS Official Platform</div>
         </div>
         <div class="auth-hero-wave"></div>
       </div>
@@ -48,7 +42,6 @@
         <button class="auth-tab" id="atab-signup" onclick="authTab('signup')">সাইন আপ</button>
       </div>
       <div class="auth-body">
-        <!-- LOGIN -->
         <div class="auth-panel on" id="ap-login">
           <div class="fld">
             <label class="flbl">ইউজার আইডি / ইমেইল / মোবাইল</label>
@@ -66,6 +59,13 @@
             </div>
             <div class="ferr" id="l-pass-e">পাসওয়ার্ড সঠিক নয়</div>
           </div>
+          <label class="remember-row" for="l-remember">
+            <input id="l-remember" type="checkbox">
+            <span>Remember me</span>
+          </label>
+          <div class="forgot-wrap">
+            <a class="forgot-link" onclick="recoverPasswordByEmailOrId()">পাসওয়ার্ড ভুলে গেছেন?</a>
+          </div>
           <button class="abtn abtn-navy" id="l-btn" onclick="doLogin()">লগইন করুন</button>
           <div class="adivider"><span>অথবা</span></div>
           <button class="abtn-ghost" onclick="authTab('signup')">✏️ নতুন অ্যাকাউন্ট তৈরি করুন</button>
@@ -73,7 +73,6 @@
           <div style="height:8px"></div>
         </div>
 
-        <!-- SIGNUP -->
         <div class="auth-panel" id="ap-signup">
           <div class="fld">
             <label class="flbl">পূর্ণ নাম *</label>
@@ -85,21 +84,19 @@
             <div class="finp-wrap" style="position:relative;">
               <input class="finp" id="s-post" type="text" placeholder="পদবি লিখুন (বাংলা/ইংরেজি)..." autocomplete="off">
               <span class="ficon">🏷️</span>
-              <!-- Auto-complete dropdown appears here -->
               <div class="position-dropdown" id="position-dropdown"></div>
             </div>
             <div class="ferr" id="s-post-e">পদবি দিন</div>
           </div>
-            <div class="fld">
-              <label class="flbl">কর্মস্থল *</label>
-              <div class="finp-wrap" style="position:relative;">
-                <input class="finp" id="s-office" type="text" placeholder="অফিসের নাম লিখুন (বাংলা/ইংরেজি)..." autocomplete="off">
-                <span class="ficon">🏢</span>
-                <!-- Auto-complete dropdown appears here -->
-                <div class="office-dropdown" id="office-dropdown"></div>
-              </div>
-              <div class="ferr" id="s-office-e">কর্মস্থলের নাম দিন</div>
+          <div class="fld">
+            <label class="flbl">কর্মস্থল *</label>
+            <div class="finp-wrap" style="position:relative;">
+              <input class="finp" id="s-office" type="text" placeholder="অফিসের নাম লিখুন (বাংলা/ইংরেজি)..." autocomplete="off">
+              <span class="ficon">🏢</span>
+              <div class="office-dropdown" id="office-dropdown"></div>
             </div>
+            <div class="ferr" id="s-office-e">কর্মস্থলের নাম দিন</div>
+          </div>
           <div class="fld">
             <label class="flbl">ইমেইল *</label>
             <div class="finp-wrap"><input class="finp" id="s-email" type="email" placeholder="example@bbs.gov.bd"><span class="ficon">📧</span></div>
@@ -129,7 +126,6 @@
       </div>
     </div>
 
-    <!-- ════ PENDING APPROVAL ════ -->
     <div class="view" id="v-pending">
       <div class="pend-icon">⏳</div>
       <div class="pend-title">অনুমোদনের অপেক্ষায়</div>
@@ -138,7 +134,6 @@
       <button class="pend-back" onclick="goView('v-auth')">← লগইন পাতায় ফিরুন</button>
     </div>
 
-    <!-- ════ DASHBOARD ════ -->
     <div class="view" id="v-dash">
       <div class="app-header">
         <div class="dh-top">
@@ -147,7 +142,7 @@
               <img src="./resources/BBS Logo.svg" style="width: 38px; height: 38px; object-fit: contain; background-color: transparent; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial;">
             </div>
             <div class="dh-text">
-              <div class="main">বিবিএস প্ল্যাটফর্ম</div>
+              <div class="main">BBS Platform</div>
               <div class="sub" id="d-uid-display"></div>
             </div>
           </div>
@@ -156,45 +151,47 @@
             <button class="dh-bell" onclick="toast('বিজ্ঞপ্তি নেই','')">🔔</button>
           </div>
         </div>
-        <div class="dh-greeting" id="d-greeting">শুভ সকাল</div>
+        <div class="dh-greeting" id="d-greeting">শুভ সকাল,</div>
         <div class="dh-name" id="d-name">কর্মী</div>
         <div class="dh-post" id="d-post-office"></div>
       </div>
       <div class="scroll">
-        <!-- Big Module Grid -->
         <div class="dash-modules">
           <div class="dash-sec-title">
             <span>মূল মডিউল</span>
             <span style="font-size:9.5px;color:var(--g400);font-family:'Noto Sans Bengali',sans-serif"><span class="ldot"></span>লাইভ</span>
           </div>
           <div class="dash-mod-grid">
-            
-           <div class="dash-mod dash-mod-phc" onclick="goView('v-phc'); renderPHCHome();" style="border:2px solid #1565C0;">
-            <div class="dash-mod-ico" style="background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%;">
-              <img src="./resources/PHC 22 logo.jpg" alt="PHC 22 logo.jpg" style="width: 100%; height: 100%; object-fit: contain;"></div>
-              <div class="dash-mod-lbl" style="color:#fff;">জনশুমারি ও গৃহগণনা ২০২২</div>
-              <div class="dash-mod-sub" style="color:rgba(255,255,255,0.8);">কক্সবাজার ডেটাবেইজ ✓</div>
+            <div class="dash-mod dash-mod-crop" onclick="goView('v-crop'); if(typeof initCropView==='function') initCropView();">
+              <div class="dash-mod-ico" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)">🌾</div>
+              <div class="dash-mod-lbl" style="color:#fff;">ক্রপ ক্যালেন্ডার</div>
+              <div class="dash-mod-sub" style="color:rgba(255,255,255,0.8);">ফসলের প্রতিবেদন প্রেরণের সময়সূচী</div>
             </div>
-            <div class="dash-mod" onclick="goView('v-archive')">
+            <div class="dash-mod dash-mod-phc" onclick="goView('v-phc'); renderPHCHome();" style="border:2px solid #1565C0;">
               <div class="dash-mod-ico" style="background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%;">
-              <img src="./resources/prokashona logo.png" alt="prokashona logo.png" style="width: 100%; height: 100%; object-fit: contain;"></div>
+                <img src="./resources/PHC 22 logo.jpg" alt="PHC 22 logo.jpg" style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
+              <div class="dash-mod-lbl" style="color:#fff;">জনশুমারি ও গৃহগণনা ২০২২</div>
+              <div class="dash-mod-sub" style="color:rgba(255,255,255,0.8);">জেলা ডেটাবেইজ ✓</div>
+            </div>
+            <div class="dash-mod dash-mod-pub" onclick="goView('v-archive')">
+              <div class="dash-mod-ico" style="background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%;">
+                <img src="./resources/prokashona logo.png" alt="prokashona logo.png" style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
               <div class="dash-mod-lbl">প্রকাশনা</div>
               <div class="dash-mod-sub">প্রকাশিত প্রতিবেদন</div>
             </div>
-            <div class="dash-mod" onclick="goView('v-crop')">
-              <div class="dash-mod-ico" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)">🌾</div>
-              <div class="dash-mod-lbl">ক্রপ ক্যালেন্ডার</div>
-              <div class="dash-mod-sub">ফসলের প্রতিবেদন প্রেরণের সময়সূচী</div>
-            </div>
-            <div class="dash-mod" onclick="goView('v-manpower')">
+            <div class="dash-mod dash-mod-emp" onclick="goView('v-manpower')">
               <div class="dash-mod-ico" style="background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%;">
-              <img src="./resources/employee icon.png" alt="employee icon.png" style="width: 100%; height: 100%; object-fit: contain;"></div>
-              <div class="dash-mod-lbl">জনবল</div>
-              <div class="dash-mod-sub">কর্মী তালিকা</div>
+                <img src="./resources/employee icon.png" alt="employee icon.png" style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
+              <div class="dash-mod-lbl" style="color:#fff;">জনবল</div>
+              <div class="dash-mod-sub" style="color:rgba(255,255,255,0.8);">কর্মী তালিকা</div>
             </div>
             <div class="dash-mod" onclick="goView('v-profile')">
               <div class="dash-mod-ico" style="background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%;">
-              <img src="./resources/profile icon2.png" alt="profile icon2.png" style="width: 100%; height: 100%; object-fit: contain;"></div>
+                <img src="./resources/profile icon2.png" alt="profile icon2.png" style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
               <div class="dash-mod-lbl">প্রোফাইল</div>
               <div class="dash-mod-sub">তথ্য আপডেট</div>
             </div>
@@ -203,14 +200,11 @@
               <div class="dash-mod-lbl">সাম্প্রতিক জরিপ</div>
               <div class="dash-mod-sub">তথ্য ও অগ্রগতি</div>
             </div>
-            
             <div class="dash-mod" onclick="toast('শীঘ্রই আসছে','warn')">
               <div class="dash-mod-ico" style="background:linear-gradient(135deg,#E0F7FA,#B2EBF2)">📢</div>
               <div class="dash-mod-lbl">নোটিশ বোর্ড</div>
               <div class="dash-mod-sub">অফিস নোটিশ</div>
             </div>
-            
-            
             <div class="dash-mod" onclick="goView('v-circulars')">
               <div class="dash-mod-ico" style="background:linear-gradient(135deg,#E8EAF6,#C5CAE9)">📜</div>
               <div class="dash-mod-lbl">পরিপত্র ও নোটিশ</div>
@@ -223,19 +217,17 @@
             </div>
           </div>
         </div>
-
         <div style="height:16px"></div>
       </div>
       <div class="bnav">
         <button class="bni on" id="bn-home" onclick="switchTab('home')"><span class="ico">🏠</span><span class="lbl">হোম</span><div class="bni-dot"></div></button>
         <button class="bni" id="bn-surveys" onclick="goView('v-surveys');switchTab('surveys')"><span class="ico">📋</span><span class="lbl">জরিপ</span><div class="bni-dot"></div></button>
         <button class="bni" id="bn-manpower" onclick="goView('v-manpower');switchTab('manpower')"><span class="ico">👥</span><span class="lbl">জনবল</span><div class="bni-dot"></div></button>
-        <button class="bni" id="bn-crop" onclick="goView('v-crop');switchTab('crop')"><span class="ico">🌾</span><span class="lbl">ক্রপ ক্যা.</span><div class="bni-dot"></div></button>
+        <button class="bni" id="bn-crop" onclick="goView('v-crop'); if(typeof initCropView==='function') initCropView(); switchTab('crop')"><span class="ico">🌾</span><span class="lbl">ক্রপ ক্যা.</span><div class="bni-dot"></div></button>
         <button class="bni" id="bn-profile" onclick="goView('v-profile');switchTab('profile')"><span class="ico">👤</span><span class="lbl">প্রোফাইল</span><div class="bni-dot"></div></button>
       </div>
     </div>
 
-    <!-- ════ SURVEY INFO ════ -->
     <div class="view" id="v-surveys">
       <div class="ph">
         <div class="ph-row">
@@ -256,7 +248,6 @@
       </div>
     </div>
 
-    <!-- ════ MANPOWER ════ -->
     <div class="view" id="v-manpower">
       <div class="ph">
         <div class="ph-row">
@@ -280,7 +271,6 @@
       <div class="scroll" id="emp-list"></div>
     </div>
 
-    <!-- ════ EMPLOYEE DETAIL ════ -->
     <div class="view" id="v-emp-detail">
       <div class="emp-hero">
         <button class="ph-back" onclick="goView('v-manpower')" style="position:absolute;top:16px;left:20px">‹</button>
@@ -295,7 +285,6 @@
       </div>
     </div>
 
-    <!-- ════ PROFILE ════ -->
     <div class="view" id="v-profile">
       <div class="prof-hero">
         <button class="ph-back" onclick="goView('v-dash')" style="position:absolute;top:16px;left:20px">‹</button>
@@ -343,7 +332,6 @@
       </div>
     </div>
 
-    <!-- ════ PROFILE EDIT ════ -->
     <div class="view" id="v-profile-edit">
       <div class="ph">
         <div class="ph-row">
@@ -388,7 +376,6 @@
       </div>
     </div>
 
-    <!-- ════ ADMIN PANEL ════ -->
     <div class="view" id="v-admin">
       <div class="ph" style="background:linear-gradient(135deg,#7B2D8B,#4A1060)">
         <div class="ph-row">
@@ -414,9 +401,7 @@
       </div>
     </div>
 
-    <!-- ════ CROP CALENDAR ════ -->
     <div class="view" id="v-crop">
-      <!-- Distinctive header: navy → teal gradient with golden accent (BBS palette, unique combo) -->
       <div class="crop-header">
         <div class="crop-header-bg"></div>
         <div class="crop-header-row">
@@ -428,7 +413,6 @@
           <button class="crop-notif-btn" id="crop-notif-btn" onclick="toggleCropNotifications()" title="নোটিফিকেশন">🔕</button>
         </div>
 
-        <!-- Floating user identity card -->
         <div class="crop-user-card">
           <div class="cuc-avatar" id="cuc-avatar">কর্ম</div>
           <div class="cuc-info">
@@ -444,7 +428,6 @@
       </div>
 
       <div class="scroll crop-scroll">
-        <!-- Mode switcher (only for HQ Wing / admin / users without officeType) -->
         <div class="crop-mode-row" id="crop-mode-row" style="display:none">
           <label class="crop-mode-lbl">প্রেরণ স্তর নির্বাচন</label>
           <select id="crop-mode-sel" onchange="setCropMode(this.value)">
@@ -454,7 +437,6 @@
           </select>
         </div>
 
-        <!-- Stats: 4 gradient cards -->
         <div class="crop-stats">
           <div class="cs-card cs-total"><div class="cs-ico">📋</div><div class="cs-num" id="cs-total">০</div><div class="cs-lbl">মোট</div></div>
           <div class="cs-card cs-done"><div class="cs-ico">✅</div><div class="cs-num" id="cs-done">০</div><div class="cs-lbl">দাখিল</div></div>
@@ -462,18 +444,15 @@
           <div class="cs-card cs-over"><div class="cs-ico">⚠️</div><div class="cs-num" id="cs-over">০</div><div class="cs-lbl">বিলম্ব</div></div>
         </div>
 
-        <!-- Tab pills -->
         <div class="crop-tabs">
           <button class="ct-btn on" id="ct-rem" onclick="cropTab('rem')"><span>⏰</span><span>আগামী ৭ দিন</span></button>
-          <button class="ct-btn"    id="ct-cal" onclick="cropTab('cal')"><span>📅</span><span>পূর্ণাঙ্গ ক্যালেন্ডার</span></button>
+          <button class="ct-btn" id="ct-cal" onclick="cropTab('cal')"><span>📅</span><span>পূর্ণাঙ্গ ক্যালেন্ডার</span></button>
         </div>
 
-        <!-- Reminders: today + next 7 days only -->
         <div id="crop-rem-view">
           <div id="crop-reminders"></div>
         </div>
 
-        <!-- Calendar -->
         <div id="crop-cal-view" style="display:none">
           <div class="crop-filters">
             <input id="crop-search" type="text" placeholder="🔍 প্রতিবেদন খুঁজুন..." oninput="renderCropCal()">
@@ -494,7 +473,36 @@
       </div>
     </div>
 
-    <!-- ════ REPORT ARCHIVE ════ -->
+    <!-- ═══════════ জনশুমারি (PHC) VIEWS ═══════════ -->
+    <div class="view" id="v-phc">
+      <div class="ph" id="phc-header" style="background:linear-gradient(135deg,#1565C0,#0D47A1)">
+        <div class="ph-row">
+          <button class="ph-back" onclick="goView('v-dash')">‹</button>
+          <div class="ph-title">
+            <div class="main" id="phc-header-main-txt">জনশুমারি ও গৃহগণনা ২০২২</div>
+            <div class="sub" id="phc-header-sub-txt">জেলা ডেটাবেইজ</div>
+          </div>
+          <div class="ph-badge" id="phc-header-badge-txt"></div>
+        </div>
+      </div>
+      <div class="phc-tabs" id="phc-tabs"></div>
+      <div class="scroll" id="phc-content"></div>
+    </div>
+
+    <div class="view" id="v-phc-detail">
+      <div class="ph" id="phc-detail-header" style="background:linear-gradient(135deg,#1565C0,#0D47A1)">
+        <div class="ph-row">
+          <button class="ph-back" onclick="goView('v-phc')">‹</button>
+          <div class="ph-title">
+            <div class="main" id="phc-detail-name">উপজেলা</div>
+          </div>
+          <div style="width:34px"></div>
+        </div>
+      </div>
+      <div class="scroll" id="phc-detail-body"></div>
+    </div>
+    <!-- ═══════════ END PHC VIEWS ═══════════ -->
+
     <div class="view" id="v-archive">
       <div class="xv-header xv-arch">
         <button class="xv-back" onclick="goView('v-dash')">‹</button>
@@ -504,20 +512,18 @@
         </div>
       </div>
       <div class="scroll xv-scroll">
-        <div class="xv-stats" id="arch-stats"></div>
-        <div class="xv-filter">
-          <select id="arch-month-sel" onchange="renderArchive()">
-            <option value="all">সকল মাস</option>
-          </select>
-          <select id="arch-year-sel" onchange="renderArchive()">
-            <option value="all">সকল বছর</option>
-          </select>
-        </div>
-        <div id="arch-list"></div>
+        <button class="xv-bbs-link" onclick="openBbsPublishedReports()">
+          <span class="xv-bbs-top">
+            <span class="xv-bbs-icon">📊</span>
+            <span class="xv-bbs-badge">Official</span>
+          </span>
+          <span class="xv-bbs-link-title">বিবিএস এর প্রকাশিত প্রতিবেদন</span>
+          <span class="xv-bbs-link-sub">অফিসিয়াল ওয়েবসাইটে দেখুন</span>
+          <span class="xv-bbs-cta">এখনই দেখুন ↗</span>
+        </button>
       </div>
     </div>
 
-    <!-- ════ CIRCULARS & NOTICES ════ -->
     <div class="view" id="v-circulars">
       <div class="xv-header xv-circ">
         <button class="xv-back" onclick="goView('v-dash')">‹</button>
@@ -537,7 +543,6 @@
       </div>
     </div>
 
-    <!-- ════ TRAINING CALENDAR ════ -->
     <div class="view" id="v-training">
       <div class="xv-header xv-train">
         <button class="xv-back" onclick="goView('v-dash')">‹</button>
@@ -558,60 +563,40 @@
 
   </div>
 
-    <!-- ════════════════════════════════════════════════
-         PHC 2022 — জনশুমারি ও গৃহগণনা ২০২২ MAIN VIEW
-         ════════════════════════════════════════════════ -->
-    <div class="view" id="v-phc" style="display:flex;flex-direction:column;height:100%;overflow:hidden;">
-      <div class="phc-header">
-        <div class="phc-header-top">
-          <button class="phc-header-back" onclick="goView('v-dash')">‹</button>
-          <div class="phc-header-title">
-            <div class="phc-header-main">জনশুমারি ও গৃহগণনা ২০২২</div>
-            <div class="phc-header-sub">কমিউনিটি রিপোর্ট: কক্সবাজার — BBS</div>
-          </div>
-          <div class="phc-header-badge">৯ উপজেলা</div>
-        </div>
-        <div class="phc-tabs" id="phc-tabs"></div>
-      </div>
-      <div id="phc-content" style="flex:1;overflow-y:auto;padding:12px;background:#F4F6F9;"></div>
-    </div>
-
-    <!-- ════════════════════════════════════════════════
-         PHC 2022 — UPAZILA DETAIL VIEW
-         ════════════════════════════════════════════════ -->
-    <div class="view" id="v-phc-detail" style="display:flex;flex-direction:column;height:100%;overflow:hidden;">
-      <div class="phc-detail-header">
-        <button class="phc-detail-back" onclick="goView('v-phc')">‹</button>
-        <div>
-          <div class="phc-detail-title" id="phc-detail-name">উপজেলার তথ্য</div>
-          <div class="phc-detail-subtitle">জনশুমারি ও গৃহগণনা ২০২২ — কক্সবাজার</div>
-        </div>
-      </div>
-      <div class="phc-detail-body" id="phc-detail-body" style="flex:1;overflow-y:auto;padding:12px;background:#F4F6F9;"></div>
-    </div>
-
   <div id="toast"></div>
-  <!-- M!N L@bs Brand Footer -->
   <div class="brand-footer">
-  <span class="bf-powered">Managed by</span>
-  <span class="bf-min">M!N</span>
-  <span class="bf-sep">&nbsp;</span>
-  <span class="bf-labs">L@bs</span>
+    <span class="bf-powered">Managed by</span>
+    <span class="bf-min">M!N</span>
+    <span class="bf-sep">&nbsp;</span>
+    <span class="bf-labs">L@bs</span>
   </div>
 </div>
-<script src="js/supabase_config.js"></script>
-<script src="js/migrate_data.js"></script>
-<script src="js/data.js"></script>
+
+<!-- ═══════════ FIREBASE SDK (CDN) ═══════════ -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+
+<!-- ═══════════ FIREBASE CONFIGURATION ═══════════ -->
+<script src="config/firebase.js"></script>
+<script src="js/firebase-config.js"></script>
+
+<!-- ═══════════ CORE SCRIPTS ═══════════ -->
 <script src="js/SURVEYS.js"></script>
 <script src="js/currentView.js"></script>
+<script src="js/deviceBack.js"></script>
 <script src="js/TOAST.js"></script>
-<script src="js/SPLASH.js"></script>
+<script src="js/data.js"></script>
+
+<!-- ═══════════ AUTH SCRIPTS ═══════════ -->
 <script src="js/authTab.js"></script>
 <script src="js/genUserId.js"></script>
 <script src="js/doLogin.js"></script>
 <script src="js/doSignup.js"></script>
 <script src="js/showPending.js"></script>
 <script src="js/doLogout.js"></script>
+
+<!-- ═══════════ FEATURE SCRIPTS ═══════════ -->
 <script src="js/applyUser.js"></script>
 <script src="js/renderDashSurveys.js"></script>
 <script src="js/renderEmployeeList.js"></script>
@@ -621,20 +606,39 @@
 <script src="js/switchTab.js"></script>
 <script src="js/origGoView.js"></script>
 <script src="js/initClock.js"></script>
+<script src="js/app.js"></script>
+
+<!-- ═══════════ DATA & SEARCH SCRIPTS ═══════════ -->
 <script src="js/bbs_offices_data.js"></script>
 <script src="js/office_search.js"></script>
 <script src="js/bbs_positions_data.js"></script>
 <script src="js/position_search.js"></script>
+
+<!-- ═══════════ MODULE SCRIPTS ═══════════ -->
 <script src="js/crop_data.js"></script>
 <script src="js/crop.js"></script>
 <script src="js/extra_views.js"></script>
 <script src="js/phc_2022_data.js"></script>
 <script src="js/phc_2022_view.js"></script>
+
+<!-- ═══════════ AUTOCOMPLETE INIT ═══════════ -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  setupOfficeAutocomplete('s-office', 'office-dropdown');
-  setupPositionAutocomplete('s-post', 'position-dropdown');
-});
+function initializeAutocomplete() {
+  if (typeof setupOfficeAutocomplete === 'function') {
+    setupOfficeAutocomplete('s-office', 'office-dropdown');
+  }
+  if (typeof setupPositionAutocomplete === 'function') {
+    setupPositionAutocomplete('s-post', 'position-dropdown');
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeAutocomplete);
+} else {
+  initializeAutocomplete();
+}
 </script>
+
+<!-- ═══════════ PREMIUM GRADIENTS ═══════════ -->
+<script src="js/premiumGradients.js"></script>
 </body>
 </html>

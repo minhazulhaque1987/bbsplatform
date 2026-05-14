@@ -1,0 +1,314 @@
+{
+  "upazilas": {
+    "16": "CHAKARIA",
+    "24": "COX'S BAZAR SADAR",
+    "45": "KUTUBDIA",
+    "49": "MAHESHKHALI",
+    "56": "PEKUA",
+    "66": "RAMU",
+    "90": "TEKNAF",
+    "94": "UKHIA"
+  },
+  "unionsByUpa": {
+    "16": [
+      {
+        "name_en": "BADARKHALI",
+        "area_sq_km": 44.47
+      },
+      {
+        "name_en": "BAMU BILCHHARI",
+        "area_sq_km": 35.26
+      },
+      {
+        "name_en": "BARAITALI",
+        "area_sq_km": 65.41
+      },
+      {
+        "name_en": "BHEOLA MANIKCHAR",
+        "area_sq_km": 38.29
+      },
+      {
+        "name_en": "CHIRINGGA",
+        "area_sq_km": 60.42
+      },
+      {
+        "name_en": "DHEMUSHIA",
+        "area_sq_km": 36.84
+      },
+      {
+        "name_en": "DULAHAZARA",
+        "area_sq_km": 97.95
+      },
+      {
+        "name_en": "PURBA BARA BHEOLA",
+        "area_sq_km": 36.55
+      },
+      {
+        "name_en": "FANSIAKHALI",
+        "area_sq_km": 37.83
+      },
+      {
+        "name_en": "HARBANG",
+        "area_sq_km": 85.13
+      },
+      {
+        "name_en": "KAKARA",
+        "area_sq_km": 54.56
+      },
+      {
+        "name_en": "KAIYARBIL",
+        "area_sq_km": 20.72
+      },
+      {
+        "name_en": "KHUTAKHALI",
+        "area_sq_km": 101.2
+      },
+      {
+        "name_en": "KONAKHALI",
+        "area_sq_km": 24.8
+      },
+      {
+        "name_en": "LAKKHYARCHAR",
+        "area_sq_km": 18.89
+      },
+      {
+        "name_en": "SAHARBIL",
+        "area_sq_km": 97.21
+      },
+      {
+        "name_en": "SURAJPUR MANIKPUR",
+        "area_sq_km": 78.2
+      },
+      {
+        "name_en": "PASHCHIM BARA BHEOLA",
+        "area_sq_km": 65.47
+      }
+    ],
+    "24": [
+      {
+        "name_en": "BHARUAKHALI",
+        "area_sq_km": 37.87
+      },
+      {
+        "name_en": "CHOUFALDANDI",
+        "area_sq_km": 36.35
+      },
+      {
+        "name_en": "EIDGAON",
+        "area_sq_km": 0
+      },
+      {
+        "name_en": "ISLAMPUR",
+        "area_sq_km": 2149.31
+      },
+      {
+        "name_en": "ISLAMABAD",
+        "area_sq_km": 0
+      },
+      {
+        "name_en": "JALALABAD",
+        "area_sq_km": 0
+      },
+      {
+        "name_en": "JHILANGJA",
+        "area_sq_km": 0
+      },
+      {
+        "name_en": "KHURUSHKUL",
+        "area_sq_km": 58.48
+      },
+      {
+        "name_en": "PATALI MACHHUAKHALI (PM KHALI)",
+        "area_sq_km": 67.23
+      },
+      {
+        "name_en": "POKKHALI",
+        "area_sq_km": 56.54
+      }
+    ],
+    "45": [
+      {
+        "name_en": "ALI AKBAR DALE",
+        "area_sq_km": 40.52
+      },
+      {
+        "name_en": "BARA GHOP",
+        "area_sq_km": 25.55
+      },
+      {
+        "name_en": "DAKKHIN DHURUNG",
+        "area_sq_km": 24.78
+      },
+      {
+        "name_en": "KAIYARBIL",
+        "area_sq_km": 21.47
+      },
+      {
+        "name_en": "LEMSHIKHALI",
+        "area_sq_km": 39.98
+      },
+      {
+        "name_en": "UTTAR DHURUNG",
+        "area_sq_km": 39.76
+      }
+    ],
+    "49": [
+      {
+        "name_en": "BARA MAHESHKHALI",
+        "area_sq_km": 37.32
+      },
+      {
+        "name_en": "CHHOTOA MAHESHKHALI",
+        "area_sq_km": 25.58
+      },
+      {
+        "name_en": "DHALGHATA",
+        "area_sq_km": 4.94
+      },
+      {
+        "name_en": "HOANAK",
+        "area_sq_km": 91.98
+      },
+      {
+        "name_en": "KALARMARCHHARA",
+        "area_sq_km": 71.96
+      },
+      {
+        "name_en": "KUTUBJOM",
+        "area_sq_km": 74.79
+      },
+      {
+        "name_en": "MATARBARI",
+        "area_sq_km": 66.82
+      },
+      {
+        "name_en": "SHAPLAPUR",
+        "area_sq_km": 171.1
+      }
+    ],
+    "56": [
+      {
+        "name_en": "BARABAKIA",
+        "area_sq_km": 34.41
+      },
+      {
+        "name_en": "UJANTIA",
+        "area_sq_km": 70.4
+      },
+      {
+        "name_en": "MAGNAMA",
+        "area_sq_km": 53
+      },
+      {
+        "name_en": "PEKUA",
+        "area_sq_km": 71.01
+      },
+      {
+        "name_en": "RAJAKHALI",
+        "area_sq_km": 44.06
+      },
+      {
+        "name_en": "SHILKHALI",
+        "area_sq_km": 19.35
+      },
+      {
+        "name_en": "TAITANG",
+        "area_sq_km": 49.33
+      }
+    ],
+    "66": [
+      {
+        "name_en": "CHAKMARKUL",
+        "area_sq_km": 18.16
+      },
+      {
+        "name_en": "FATEKHARKUL",
+        "area_sq_km": 24.38
+      },
+      {
+        "name_en": "GARJANIA",
+        "area_sq_km": 159.08
+      },
+      {
+        "name_en": "EIDGAR",
+        "area_sq_km": 128.65
+      },
+      {
+        "name_en": "JOARIANALA",
+        "area_sq_km": 68.75
+      },
+      {
+        "name_en": "KACHCHHAPIA",
+        "area_sq_km": 111.36
+      },
+      {
+        "name_en": "KHUNIAPALANG",
+        "area_sq_km": 190.18
+      },
+      {
+        "name_en": "KAUAR KHOP",
+        "area_sq_km": 62.92
+      },
+      {
+        "name_en": "RASHIDNAGAR",
+        "area_sq_km": 42.56
+      },
+      {
+        "name_en": "RAJARKUL",
+        "area_sq_km": 50.43
+      },
+      {
+        "name_en": "DAKKHIN MITHACHHARI",
+        "area_sq_km": 100.84
+      }
+    ],
+    "90": [
+      {
+        "name_en": "BAHARCHHARA",
+        "area_sq_km": 44.85
+      },
+      {
+        "name_en": "NHILA",
+        "area_sq_km": 171.25
+      },
+      {
+        "name_en": "SAINT MARTIN",
+        "area_sq_km": 8.36
+      },
+      {
+        "name_en": "SABRANG",
+        "area_sq_km": 162.57
+      },
+      {
+        "name_en": "TEKNAF",
+        "area_sq_km": 252.51
+      },
+      {
+        "name_en": "WHYKYONG",
+        "area_sq_km": 315.82
+      }
+    ],
+    "94": [
+      {
+        "name_en": "HALDIA PALANG",
+        "area_sq_km": 166.99
+      },
+      {
+        "name_en": "JALIA PALANG",
+        "area_sq_km": 64.74
+      },
+      {
+        "name_en": "RAJAPALANG",
+        "area_sq_km": 97.35
+      },
+      {
+        "name_en": "RATNAPALANG",
+        "area_sq_km": 51.08
+      },
+      {
+        "name_en": "PALANGKHALI",
+        "area_sq_km": 334.42
+      }
+    ]
+  }
+}
