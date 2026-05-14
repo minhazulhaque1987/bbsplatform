@@ -27,42 +27,43 @@ jobs:
 
       - name: Prepare Web Assets
         run: |
-          mkdir -p dist
-          cp index.html dist/ || true
-          # আপনার assets ফোল্ডারে icon.png থাকলে তা কপি হবে
-          if [ -d "assets" ]; then cp -r assets dist/; fi
+          mkdir -p www
+          cp index.html www/ || true
+          if [ -d "css" ]; then cp -r css www/; fi
+          if [ -d "js" ]; then cp -r js www/; fi
+          if [ -d "resources" ]; then cp -r resources www/; fi
+          if [ -d "config" ]; then cp -r config www/; fi
+          if [ -d "assets" ]; then cp -r assets www/; fi
 
       - name: Install Dependencies
         run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets
-          npx cap init "BBS Platform" "com.minhaz.bbsplatform" --web-dir dist || true
+          npm install
+          # Ensure Capacitor CLI and Assets tool are available
+          npm install @capacitor/cli @capacitor/core @capacitor/android @capacitor/assets
 
       - name: Generate Icons
         run: |
-          # যদি assets/icon.png থাকে তবেই এটি রান করবে
           if [ -f "assets/icon.png" ]; then
             npx capacitor-assets generate --android
           else
             echo "Icon not found in assets/icon.png. Skipping icon generation."
           fi
 
-      - name: Build Android Project
+      - name: Sync Android Project
         run: |
-          rm -rf android
-          npx cap add android
-          npx cap copy
-          npx cap update
+          # Use sync to copy web assets and update native dependencies
+          npx cap sync android
 
       - name: Build APK
         run: |
           cd android
           chmod +x gradlew
-          # গ্র্যাডলকে জাভা হোম চিনিয়ে দেওয়া
+          # Ensure correct Java version is used
           export JAVA_HOME=$JAVA_HOME_21_X64
           ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: my-app-apk
+          name: BBS-Platform-Debug-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
