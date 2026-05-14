@@ -3,8 +3,7 @@ on: [push]
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  # নিচের লাইনটি যোগ করলে পুরনো ভার্সনের ওয়ার্নিংগুলো ইগনোর হবে
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true 
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
   build:
@@ -13,36 +12,39 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
 
+      # প্রথমে জাভা সেটআপ করা অত্যন্ত জরুরি
       - name: Setup Java 21
-        uses: actions/setup-node@v4
+        uses: actions/setup-java@v4
         with:
-          node-version: 22
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Prepare Web Assets (Size Optimization)
+      - name: Prepare Web Assets
         run: |
-          # শুধু প্রয়োজনীয় ফাইলগুলো আলাদা করা হচ্ছে যাতে অ্যাপের সাইজ ছোট থাকে
           mkdir -p dist
           cp index.html dist/ || true
-          cp -r assets dist/ || true
-          # আপনার যদি আলাদা স্টাইল বা স্ক্রিপ্ট ফোল্ডার থাকে তবে নিচের লাইনগুলো আনকমেন্ট করুন
-          # cp -r css dist/ || true
-          # cp -r js dist/ || true
+          # আপনার assets ফোল্ডারে icon.png থাকলে তা কপি হবে
+          if [ -d "assets" ]; then cp -r assets dist/; fi
 
       - name: Install Dependencies
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets
-          # web-dir হিসেবে dist ফোল্ডারকে ব্যবহার করা হচ্ছে
-          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir dist || true
-          
+          npx cap init "BBS Platform" "com.minhaz.bbsplatform" --web-dir dist || true
+
       - name: Generate Icons
         run: |
-          # আইকন জেনারেট করা
-          npx capacitor-assets generate --android
+          # যদি assets/icon.png থাকে তবেই এটি রান করবে
+          if [ -f "assets/icon.png" ]; then
+            npx capacitor-assets generate --android
+          else
+            echo "Icon not found in assets/icon.png. Skipping icon generation."
+          fi
 
       - name: Build Android Project
         run: |
@@ -55,6 +57,8 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
+          # গ্র্যাডলকে জাভা হোম চিনিয়ে দেওয়া
+          export JAVA_HOME=$JAVA_HOME_21_X64
           ./gradlew assembleDebug
 
       - name: Upload APK
