@@ -11,18 +11,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # এখানে ১৮ থেকে বাড়িয়ে ২২ করা হয়েছে
+          node-version: 22
 
       - name: Install Dependencies
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          # যদি android ফোল্ডার না থাকে তবেই add করবে
-          if [ ! -d "android" ]; then
-            npx cap add android
-          fi
+          # নিশ্চিত করা যে সব ফাইল ফ্রেশ ভাবে তৈরি হচ্ছে
+          rm -rf android 
+          npx cap add android
 
-      - name: Sync Web Assets
-        run: npx cap copy
+      - name: Sync and Update Capacitor
+        run: |
+          npx cap copy
+          npx cap update
 
       - name: Build APK
         run: |
