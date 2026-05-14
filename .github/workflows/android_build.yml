@@ -1,49 +1,7 @@
-name: Build Android APK
-on: [push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Source
-        uses: actions/checkout@v4
-
-      - name: Setup Java 21 # এই নতুন স্টেপটি জাভার সমস্যা সমাধান করবে
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin' # এটি একটি স্ট্যান্ডার্ড এবং নির্ভরযোগ্য জাভা ডিস্ট্রিবিউশন
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Prepare Web Assets
+- name: Generate Icons and Splash
         run: |
-          mkdir -p www
-          cp -r * www || true
-
-      - name: Install Dependencies
-        run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir www || true
-          rm -rf android
-          npx cap add android
-
-      - name: Sync and Update
-        run: |
-          npx cap copy
-          npx cap update
-
-      - name: Build APK
-        run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-app-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          # আইকন জেনারেটর টুল ইনস্টল
+          npm install @capacitor/assets --save-dev
+          
+          # আইকন জেনারেট করা (এটি অটোমেটিক সব সাইজ তৈরি করে দেবে)
+          npx capacitor-assets generate --android
