@@ -2,7 +2,6 @@ name: Build Android APK
 on: [push]
 
 env:
-  # গিটহাব অ্যাকশনসকে আধুনিক Node.js 24 ব্যবহার করতে বাধ্য করবে (ওয়ার্নিং দূর হবে)
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
@@ -17,36 +16,30 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'gradle'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Prepare Web Assets (Size Optimization)
+      - name: Prepare Web Assets
         run: |
-          # শুধু প্রয়োজনীয় ফাইলগুলো আলাদা করা হচ্ছে যাতে অ্যাপের সাইজ ছোট থাকে
-          mkdir -p dist
-          cp index.html dist/ || true
-          # আপনার যদি assets ফোল্ডারে icon.png থাকে তা কপি হবে
-          if [ -d "assets" ]; then cp -r assets dist/; fi
-          # আপনার সিএসএস বা জেএস ফাইলগুলো থাকলে নিচের লাইনগুলো আনকমেন্ট করতে পারেন
-          # cp -r css dist/ || true
-          # cp -r js dist/ || true
+          # সাইজ কমানোর চিন্তা বাদ দিয়ে আপাতত সব ফাইল কপি করা হচ্ছে যাতে ডিজাইন না ভাঙে
+          mkdir -p www
+          cp -r * www || true
+          # অপ্রয়োজনীয় ফোল্ডার ডিলিট করা হচ্ছে যেন সাইজ একটু কমে
+          rm -rf www/android www/node_modules www/.github
 
       - name: Install Dependencies
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets
-          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir dist || true
+          # এবার 'www' ফোল্ডার ব্যবহার করা হচ্ছে
+          npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir www || true
 
       - name: Generate Icons
         run: |
-          # যদি assets/icon.png ফাইলটি থাকে তবেই এটি রান করবে
-          if [ -f "assets/icon.png" ]; then
+          if [ -d "assets" ]; then
             npx capacitor-assets generate --android
-          else
-            echo "Icon not found. Using default icon."
           fi
 
       - name: Build Android Project
@@ -60,7 +53,6 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          # নিশ্চিত করা হচ্ছে যেন Java 21 ব্যবহার হয়
           export JAVA_HOME=$JAVA_HOME_21_X64
           ./gradlew assembleDebug
 
