@@ -384,65 +384,79 @@ function shareCropMessage(msg) {
   }
 }
 
-/* ─────────────────── browser notifications ─────────────────── */
+/* ─────────────────── notifications (native / browser fallback) ─────────────────── */
 
 function toggleCropNotifications() {
-  const cur = localStorage.getItem(CROP_NOTIF_KEY) || 'off';
-  if (cur === 'on') {
-    localStorage.setItem(CROP_NOTIF_KEY, 'off');
-    if (typeof toast === 'function') toast('নোটিফিকেশন বন্ধ', '');
-    updateCropNotifBtn();
-    return;
-  }
-  if (!('Notification' in window)) {
-    if (typeof toast === 'function') toast('এই ব্রাউজার নোটিফিকেশন সমর্থন করে না', 'warn');
-    return;
-  }
-  Notification.requestPermission().then(p => {
-    if (p === 'granted') {
-      localStorage.setItem(CROP_NOTIF_KEY, 'on');
-      if (typeof toast === 'function') toast('নোটিফিকেশন চালু', 'success');
-      scheduleBrowserCropNotif();
-    } else {
-      if (typeof toast === 'function') toast('অনুমতি দেওয়া হয়নি', 'warn');
+  // Delegate to the new module or direct browser fallback
+  if (typeof window.toggleCropNotificationsNative === 'function') {
+    window.toggleCropNotificationsNative();
+  } else {
+    // Legacy fallback if new module not loaded
+    const cur = localStorage.getItem(CROP_NOTIF_KEY) || 'off';
+    if (cur === 'on') {
+      localStorage.setItem(CROP_NOTIF_KEY, 'off');
+      if (typeof toast === 'function') toast('নোটিফিকেশন বন্ধ', '');
+      return;
     }
-    updateCropNotifBtn();
-  });
+    if (!('Notification' in window)) {
+      if (typeof toast === 'function') toast('এই ব্রাউজার নোটিফিকেশন সমর্থন করে না', 'warn');
+      return;
+    }
+    Notification.requestPermission().then(p => {
+      if (p === 'granted') {
+        localStorage.setItem(CROP_NOTIF_KEY, 'on');
+        if (typeof toast === 'function') toast('নোটিফিকেশন চালু', 'success');
+      } else {
+        if (typeof toast === 'function') toast('অনুমতি দেওয়া হয়নি', 'warn');
+      }
+    });
+  }
 }
 
 function updateCropNotifBtn() {
-  const btn = document.getElementById('crop-notif-btn');
-  if (!btn) return;
-  const on = localStorage.getItem(CROP_NOTIF_KEY) === 'on';
-  btn.textContent = on ? '🔔' : '🔕';
-  btn.title = on ? 'নোটিফিকেশন চালু' : 'নোটিফিকেশন বন্ধ';
+  // Delegate to the new module's UI updater
+  if (typeof window.updateCropNotifBtnUI === 'function') {
+    window.updateCropNotifBtnUI();
+  } else {
+    const btn = document.getElementById('crop-notif-btn');
+    if (!btn) return;
+    const on = localStorage.getItem(CROP_NOTIF_KEY) === 'on';
+    btn.textContent = on ? '🔔' : '🔕';
+    btn.title = on ? 'নোটিফিকেশন চালু' : 'নোটিফিকেশন বন্ধ';
+  }
 }
 
 function scheduleBrowserCropNotif() {
-  if (localStorage.getItem(CROP_NOTIF_KEY) !== 'on') { updateCropNotifBtn(); return; }
-  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  // Delegate entirely to new module
+  if (typeof window.scheduleCropNotifications === 'function') {
+    window.scheduleCropNotifications();
+  } else {
+    // Legacy inline scheduling – kept for backward compatibility
+    if (localStorage.getItem(CROP_NOTIF_KEY) !== 'on') { updateCropNotifBtn(); return; }
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
 
-  const items = buildCropItems(cropCurrentMode);
-  const today = new Date(); today.setHours(0,0,0,0);
-  const todayStr = today.toISOString().slice(0,10);
-  const notified = (() => {
-    try { return JSON.parse(localStorage.getItem(CROP_NOTIFIED_KEY)) || {}; }
-    catch { return {}; }
-  })();
+    const items = buildCropItems(cropCurrentMode);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const todayStr = today.toISOString().slice(0,10);
+    const notified = (() => {
+      try { return JSON.parse(localStorage.getItem(CROP_NOTIFIED_KEY)) || {}; }
+      catch { return {}; }
+    })();
 
-  const due = items.filter(it => !it.isDone && it.diffDays >= 0 && it.diffDays <= 3);
-  due.forEach(it => {
-    if (notified[it.key] === todayStr) return;
-    const lbl = CROP_MODE_LABELS[cropCurrentMode];
-    const title = it.diffDays === 0 ? '⏰ আজই শেষ দিন'
-                : it.diffDays === 1 ? '📌 আগামীকাল শেষ দিন'
-                : `🗓 ${bnNum(it.diffDays)} দিনের মধ্যে দাখিল`;
-    const body = `${it.report_name}\n${lbl.from} → ${lbl.to}`;
-    try { new Notification(title, { body, tag: it.key, icon: 'resources/BBS Logo.svg' }); } catch (e) {}
-    notified[it.key] = todayStr;
-  });
-  localStorage.setItem(CROP_NOTIFIED_KEY, JSON.stringify(notified));
-  updateCropNotifBtn();
+    const due = items.filter(it => !it.isDone && it.diffDays >= 0 && it.diffDays <= 3);
+    due.forEach(it => {
+      if (notified[it.key] === todayStr) return;
+      const lbl = CROP_MODE_LABELS[cropCurrentMode];
+      const title = it.diffDays === 0 ? '⏰ আজই শেষ দিন'
+                  : it.diffDays === 1 ? '📌 আগামীকাল শেষ দিন'
+                  : `🗓 ${bnNum(it.diffDays)} দিনের মধ্যে দাখিল`;
+      const body = `${it.report_name}\n${lbl.from} → ${lbl.to}`;
+      try { new Notification(title, { body, tag: it.key, icon: 'resources/BBS Logo.svg' }); } catch (e) {}
+      notified[it.key] = todayStr;
+    });
+    localStorage.setItem(CROP_NOTIFIED_KEY, JSON.stringify(notified));
+    updateCropNotifBtn();
+  }
 }
 
 /* ─────────────────── dashboard widget ─────────────────── */

@@ -1,6 +1,7 @@
 /* ═══════════ DATABASE (localStorage + Firebase) ═══════════ */
 const DB_KEY  = 'bbs_emp_v1';
 const SES_KEY = 'bbs_emp_ses_v1';
+const SES_REMEMBER_KEY = 'bbs_emp_ses_remember_v1';
 
 function normalizeUsersData(raw) {
   if (Array.isArray(raw)) return raw;
@@ -370,6 +371,29 @@ async function checkUserCredentials(userId, password) {
   return null;
 }
 
+async function getUserByLoginIdentifier(identifier) {
+  await loadUsers();
+  const raw = (identifier || '').trim();
+  if (!raw) return null;
+  const normalizedId = raw.toLowerCase();
+
+  if (normalizedId === 'admin') {
+    const adminUser = users['ADMIN'];
+    return adminUser ? { ...adminUser, _uid: 'ADMIN' } : null;
+  }
+
+  for (const [uid, user] of Object.entries(users)) {
+    if (!user || typeof user !== 'object') continue;
+    const matchesUserId = user.userId && user.userId.toLowerCase() === normalizedId;
+    const matchesEmail = user.email && user.email.toLowerCase() === normalizedId;
+    const matchesPhone = user.phone && user.phone === raw;
+    if (matchesUserId || matchesEmail || matchesPhone) {
+      return { ...user, _uid: uid };
+    }
+  }
+  return null;
+}
+
 async function registerUser(userData) {
   console.log('Starting user registration:', userData);
   
@@ -599,6 +623,7 @@ function handleSplashNavigation() {
     
     if (user && user.status === 'approved') {
       console.log('User approved, navigating to dashboard...');
+      setCurrentUser(user);
       
       // Apply user data
       if (typeof applyUser === 'function') {
@@ -614,6 +639,7 @@ function handleSplashNavigation() {
       return;
     } else if (user && user.status === 'pending') {
       console.log('User pending, showing pending screen');
+      setCurrentUser(user);
       setTimeout(() => {
         if (typeof showPending === 'function') {
           showPending(user);
@@ -686,18 +712,38 @@ function saveUsers(userArray) {
 
 function getSes() {
   try {
-    return JSON.parse(localStorage.getItem(SES_KEY));
+    const persistent = localStorage.getItem(SES_KEY);
+    const temporary = sessionStorage.getItem(SES_KEY);
+    const raw = persistent || temporary;
+    if (!raw) return null;
+    return JSON.parse(raw);
   } catch {
     return null;
   }
 }
 
-function saveSes(u) {
-  localStorage.setItem(SES_KEY, JSON.stringify(u));
+function saveSes(u, remember) {
+  const shouldRemember = typeof remember === 'boolean'
+    ? remember
+    : localStorage.getItem(SES_REMEMBER_KEY) === '1';
+
+  const payload = JSON.stringify(u);
+  if (shouldRemember) {
+    localStorage.setItem(SES_KEY, payload);
+    localStorage.setItem(SES_REMEMBER_KEY, '1');
+    sessionStorage.removeItem(SES_KEY);
+    return;
+  }
+
+  sessionStorage.setItem(SES_KEY, payload);
+  localStorage.removeItem(SES_KEY);
+  localStorage.removeItem(SES_REMEMBER_KEY);
 }
 
 function clearSes() {
   localStorage.removeItem(SES_KEY);
+  localStorage.removeItem(SES_REMEMBER_KEY);
+  sessionStorage.removeItem(SES_KEY);
 }
 
 // Expose functions globally for admin panel and other modules
@@ -712,6 +758,7 @@ window.getUsers = getUsers;
 window.saveUsers = saveUsers;
 window.loadUsers = loadUsers;
 window.checkUserCredentials = checkUserCredentials;
+window.getUserByLoginIdentifier = getUserByLoginIdentifier;
 window.registerUser = registerUser;
 window.syncUsersToFirebase = syncUsersToFirebase;
 window.saveUserToDB = saveUserToDB;

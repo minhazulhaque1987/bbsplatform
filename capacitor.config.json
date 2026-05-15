@@ -1,5 +1,11 @@
 {
   "appId": "com.bbs.platform",
   "appName": "BBS Platform",
-  "webDir": "www"
+  "webDir": "www",
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon",
+      "iconColor": "#2e7d32"
+    }
+  }
 }
