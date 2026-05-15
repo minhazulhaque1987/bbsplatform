@@ -246,6 +246,14 @@ function getCropNotifiedMap() {
   catch { return {}; }
 }
 
+/* ─────────────────── EXPOSE functions to window (so crop.js can find them) ─────────────────── */
+
+// Explicitly assign all notification functions to window so they are
+// accessible from crop.js regardless of script load timing.
+window.toggleCropNotificationsNative = toggleCropNotificationsNative;
+window.updateCropNotifBtnUI         = updateCropNotifBtnUI;
+window.scheduleCropNotifications    = scheduleCropNotifications;
+
 /* ─────────────────── Initialize Capacitor Plugin Reference ─────────────────── */
 
 function initCropCapacitorNotif() {
