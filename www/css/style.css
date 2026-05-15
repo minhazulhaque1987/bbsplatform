@@ -1214,9 +1214,13 @@ body{
 }
 
 /* Use device hardware back button on native app */
+/* In native mode, hide the page-header back buttons but keep the
+   crop-back visible because the device back needs to go through
+   the view system rather than directly exiting the app.
+   The .crop-back is now always shown so users can navigate back
+   from the crop calendar. */
 body.use-device-back .ph-back,
 body.use-device-back .xv-back,
-body.use-device-back .crop-back,
 body.use-device-back .pend-back {
   display: none !important;
 }

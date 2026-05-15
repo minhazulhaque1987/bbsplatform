@@ -35,21 +35,28 @@
     const current = typeof window.getCurrentView === 'function' ? window.getCurrentView() : null;
     const canBack = typeof window.canGoBack === 'function' ? window.canGoBack() : false;
 
-    if (current === 'v-dash' || current === 'v-admin') {
+    // Views from which we should exit the app (main screens with bottom nav)
+    const exitViews = ['v-dash', 'v-admin', 'v-statistics', 'v-manpower', 'v-profile'];
+
+    // If we're on a main/exit view, ask to exit app
+    if (exitViews.includes(current)) {
       confirmExitFromDashboard();
       return;
     }
 
+    // If there's a view history, go back to the previous view
     if (canBack && typeof window.goBack === 'function') {
       window.goBack();
       return;
     }
 
+    // Fallback: if we know the current view but no history, navigate to dashboard
     if (current && typeof window.goView === 'function') {
       window.goView('v-dash', true);
       return;
     }
 
+    // Last resort: confirm exit
     confirmExitFromDashboard();
   }
 
