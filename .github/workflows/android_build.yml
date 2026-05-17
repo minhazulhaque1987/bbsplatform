@@ -32,7 +32,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets @capacitor/local-notifications
           # এবার 'www' ফোল্ডার ব্যবহার করা হচ্ছে
           npx cap init "BBS Platform" "com.minhaj.bbsplatform" --web-dir www || true
 

@@ -109,16 +109,8 @@ function scheduleCropNotifications() {
   const todayStr = today.toISOString().slice(0, 10);
   const notified = getCropNotifiedMap();
 
-  // Filter items that need notification
-  const toNotify = items.filter(it => {
-    if (it.isDone) return false;
-    // Notify at: 3 days before, 1 day before, and on the deadline day
-    const validDiffs = [0, 1, 3];
-    if (!validDiffs.includes(it.diffDays)) return false;
-    // Already notified today?
-    if (notified[it.notifKey] === todayStr) return false;
-    return true;
-  });
+  // Filter items that need notification (checking for diffDays 0, 1, 3)
+  const toNotify = items.filter(it => !it.isDone && [0, 1, 3].includes(it.diffDays));
 
   if (toNotify.length === 0) return;
 
@@ -169,23 +161,22 @@ async function scheduleNativeNotifications(items, todayStr, notified) {
     // Generate a unique ID from the key hash
     const notifId = hashString(it.notifKey);
 
-    // Schedule for 9:00 AM today (push notification immediately or at 9 AM)
     const now = new Date();
     const scheduleTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0);
-    if (now.getHours() >= 9) {
-      // If it's already past 9 AM, schedule a few seconds from now
-      scheduleTime.setTime(now.getTime() + 3000);
-    }
+
+    // অ্যাপের বাইরে নোটিফিকেশন নিশ্চিত করতে scheduleTime ঠিক করা হয়েছে
+    if (now.getHours() >= 9) scheduleTime.setTime(now.getTime() + 3000);
 
     const notification = {
       id: notifId,
       title: it.title,
       body: it.body,
-      largeBody: it.body,
-      summaryText: `ক্রপ ক্যালেন্ডার: ${it.report_name}`,
       schedule: { at: scheduleTime },
-      smallIcon: 'ic_stat_icon',
       iconColor: '#2e7d32',
+      android: {
+        smallIcon: 'ic_stat_icon',
+        importance: 'high',
+      },
       channelId: 'bbs-crop-calendar',
       actionTypeId: '',
       extra: {
