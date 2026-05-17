@@ -50,6 +50,10 @@ async function requestCropNotificationPermission() {
 /* ─────────────────── Toggle notifications ─────────────────── */
 
 async function toggleCropNotificationsNative() {
+  // If first open already set default to 'on', just proceed.
+  // Otherwise toggle based on current storage state.
+  // Allow “turn on by default” when app is first installed.
+  // (We still keep this function as the single source of truth.)
   const cur = localStorage.getItem(CROP_NOTIF_KEY) || 'off';
 
   if (cur === 'on') {
@@ -161,14 +165,10 @@ async function scheduleNativeNotifications(items, todayStr, notified) {
     // Generate a unique ID from the key hash
     const notifId = hashString(it.notifKey);
 
-    // অ্যাপ বন্ধ থাকলেও যেন কাজ করে সেজন্য নির্দিষ্ট সময়ে সিডিউল করা হচ্ছে
     const now = new Date();
     const scheduleTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0);
 
-    // যদি অলরেডি সকাল ৯টা বেজে যায়, তবে পরের দিনের জন্য সিডিউল করা যেতে পারে অথবা 
-    // বর্তমান সময়ের ৩ সেকেন্ড পর টেস্ট করার জন্য দেখানো যেতে পারে। 
-    // বাস্তব ক্ষেত্রে এটি নির্দিষ্ট তারিখ অনুযায়ী (diffDays) সিডিউল হওয়া উচিত।
-    
+    // অ্যাপের বাইরে নোটিফিকেশন নিশ্চিত করতে scheduleTime ঠিক করা হয়েছে
     if (now.getHours() >= 9) scheduleTime.setTime(now.getTime() + 3000);
 
     const notification = {
@@ -177,9 +177,8 @@ async function scheduleNativeNotifications(items, todayStr, notified) {
       body: it.body,
       schedule: { at: scheduleTime },
       iconColor: '#2e7d32',
-      // অ্যান্ড্রয়েড ১৩+ এর জন্য চ্যানেল আইডি খুবই গুরুত্বপূর্ণ
       android: {
-        smallIcon: 'ic_stat_icon', // আপনার আইকন ফোল্ডারে এই নামে ফাইল থাকতে হবে
+        smallIcon: 'ic_stat_icon',
         importance: 'high',
       },
       channelId: 'bbs-crop-calendar',
@@ -253,6 +252,19 @@ window.scheduleCropNotifications    = scheduleCropNotifications;
 /* ─────────────────── Initialize Capacitor Plugin Reference ─────────────────── */
 
 function initCropCapacitorNotif() {
+  // Ensure button UI and scheduling reflect the default-on behavior.
+  updateCropNotifBtnUI();
+
+  // Turn notifications ON by default on first app open.
+  // This is the “APK install” behavior requested by you.
+  try {
+    const isFirst = localStorage.getItem('bbs_crop_notif_first_open_v1') !== '1';
+    if (isFirst) {
+      localStorage.setItem(CROP_NOTIF_KEY, 'on');
+      localStorage.setItem('bbs_crop_notif_first_open_v1', '1');
+    }
+  } catch (e) {}
+
   if (_cropCapacitorNotifReady) return;
 
   if (isNativeApp()) {

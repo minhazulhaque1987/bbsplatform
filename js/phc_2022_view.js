@@ -55,12 +55,14 @@ function openPHCDivision(divisionBn){
 
 function loadPHCDistrict(districtId){
   const reg = PHC_DISTRICT_REGISTRY.find(d => d.id === districtId); if(!reg || !reg.available) return;
-  if (window[reg.data_obj] && window[reg.upazilas_obj]) return activateDistrictView(reg);
-  const script = document.createElement('script'); script.src = reg.script_path;
+  // সর্বদা স্ক্রিপ্ট লোড করি, কারণ কমিউনিটি সিরিজ জেলাগুলোর ভেতরের ভ্যারিয়েবলগুলো (upazilas/paurashavas) ফাইলের ভিতরেই থাকে।
+  const script = document.createElement('script');
+  script.src = reg.script_path;
   script.onload = () => activateDistrictView(reg);
   script.onerror = () => { if(typeof toast==='function') toast('ডেটা ফাইল লোড ব্যর্থ: '+reg.script_path, 'warn'); };
   document.head.appendChild(script);
 }
+
 
 function activateDistrictView(reg){
   phcActiveDistrict = reg; phcActiveData = window[reg.data_obj]; phcActiveUpazilas = window[reg.upazilas_obj] || []; phcActiveUnions = window[reg.unions_obj] || {}; phcSelectedUpazila = null;

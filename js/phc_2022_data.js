@@ -16,6 +16,7 @@ const PHC_INDICATOR_INDEX = [
 ];
 
 const PHC_DISTRICT_REGISTRY = [
+  // কক্সবাজার (district + upazila + union আছে)
   {
     id: "coxsbazar",
     name_bn: "কক্সবাজার",
@@ -30,8 +31,10 @@ const PHC_DISTRICT_REGISTRY = [
     data_obj: "PHC_DISTRICT_COXSBAZAR",
     upazilas_obj: "PHC_UPAZILAS_COXSBAZAR",
     unions_obj: "PHC_UNIONS_COXSBAZAR",
-    script_path: "js/districts/phc_data_coxsbazar.js" // ফাইলের লোকেশন
+    script_path: "js/districts/phc_data_coxsbazar.js"
   },
+
+  // চট্টগ্রাম (এই প্রোজেক্টে district-summary/union ভ্যারিয়েবল নেই—তাই district ভিউ দেখাতে district summary হিসেবে phc_multi_district.js ব্যবহার করা হচ্ছে)
   {
     id: "chittagong",
     name_bn: "চট্টগ্রাম",
@@ -45,7 +48,155 @@ const PHC_DISTRICT_REGISTRY = [
     upazila_count: 16,
     data_obj: "PHC_DISTRICT_CHATTOGRAM",
     upazilas_obj: "PHC_UPAZILAS_CHATTOGRAM",
-    script_path: "js/districts/phc_data_chittagong.js" // এটি পরে যুক্ত করবেন
+    unions_obj: null,
+    script_path: "js/districts/phc_multi_district.js"
+  },
+
+  // Community series: এগুলোতে শুধু PHC_UPAZILAS_* আছে (PHC_DISTRICT_* / PHC_UNIONS_* নেই)
+  {
+    id: "bandarban",
+    name_bn: "বান্দরবান",
+    name_en: "Bandarban",
+    code: "03",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "⛰️",
+    pop_total_2022: null,
+    upazila_count: 7,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_BANDARBAN_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_bandarban_comm.js"
+  },
+  {
+    id: "brahmanbaria",
+    name_bn: "ব্রাহ্মণবাড়িয়া",
+    name_en: "Brahmanbaria",
+    code: "20",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "🏠",
+    pop_total_2022: null,
+    upazila_count: 9,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_BRAHMANBARIA_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_brahmanbaria_comm.js"
+  },
+  {
+    id: "chandpur",
+    name_bn: "চাঁদপুর",
+    name_en: "Chandpur",
+    code: "13",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "🐟",
+    pop_total_2022: null,
+    upazila_count: 8,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_CHANDPUR_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_chandpur_comm.js"
+  },
+  {
+    id: "cumilla",
+    name_bn: "কুমিল্লা",
+    name_en: "Cumilla",
+    code: "19",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "🏥",
+    pop_total_2022: null,
+    upazila_count: 18,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_CUMILLA_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_cumilla_comm.js"
+  },
+  {
+    id: "feni",
+    name_bn: "ফেনী",
+    name_en: "Feni",
+    code: "27",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "🌃",
+    pop_total_2022: null,
+    upazila_count: 6,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_FENI_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_feni_comm.js"
+  },
+  {
+    id: "khagrachhari",
+    name_bn: "খাগড়াছড়ি",
+    name_en: "Khagrachhari",
+    code: "09",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "🗻",
+    pop_total_2022: null,
+    upazila_count: 9,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_KHAGRACHHARI_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_khagrachhari_comm.js"
+  },
+  {
+    id: "lakshmipur",
+    name_bn: "লক্ষ্মীপুর",
+    name_en: "Lakshmipur",
+    code: "49",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "🌊",
+    pop_total_2022: null,
+    upazila_count: 5,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_LAKSHMIPUR_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_lakshmipur_comm.js"
+  },
+  {
+    id: "noakhali",
+    name_bn: "নোয়াখালী",
+    name_en: "Noakhali",
+    code: "57",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "🌊",
+    pop_total_2022: null,
+    upazila_count: 9,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_NOAKHALI_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_noakhali_comm.js"
+  },
+  {
+    id: "rangamati",
+    name_bn: "রাঙামাটি",
+    name_en: "Rangamati",
+    code: "86",
+    division_bn: "চট্টগ্রাম",
+    available: true,
+    color: "#1565C0",
+    icon: "🌄",
+    pop_total_2022: null,
+    upazila_count: 10,
+    data_obj: null,
+    upazilas_obj: "PHC_UPAZILAS_RANGAMATI_COMM",
+    unions_obj: null,
+    script_path: "js/districts/phc_rangamati_comm.js"
   }
 ];
+
 

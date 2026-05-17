@@ -11,6 +11,8 @@
 </head>
 <body>
 <div class="phone">
+  <div style="flex-shrink:0"></div>
+
   <div class="notch"></div>
   <div class="status-bar">
     <span class="s-time">9:41</span>
@@ -20,7 +22,7 @@
     </div>
   </div>
 
-  <div class="app">
+    <div class="app">
 
     <div class="view active" id="v-splash">
       <div class="sp-logo"><img src="./resources/BBS Logo.svg" alt="BBS Logo"></div>
@@ -219,13 +221,7 @@
         </div>
         <div style="height:16px"></div>
       </div>
-      <div class="bnav">
-        <button class="bni on" id="bn-home" onclick="switchTab('home')"><span class="ico">🏠</span><span class="lbl">হোম</span><div class="bni-dot"></div></button>
-        <button class="bni" id="bn-surveys" onclick="goView('v-statistics');switchTab('surveys')"><span class="ico">📊</span><span class="lbl">পরিসংখ্যান</span><div class="bni-dot"></div></button>
-        <button class="bni" id="bn-manpower" onclick="goView('v-manpower');switchTab('manpower')"><span class="ico">👥</span><span class="lbl">জনবল</span><div class="bni-dot"></div></button>
-        <button class="bni" id="bn-crop" onclick="goView('v-crop'); if(typeof initCropView==='function') initCropView(); switchTab('crop')"><span class="ico">🌾</span><span class="lbl">ক্রপ ক্যা.</span><div class="bni-dot"></div></button>
-        <button class="bni" id="bn-profile" onclick="goView('v-profile');switchTab('profile')"><span class="ico">👤</span><span class="lbl">প্রোফাইল</span><div class="bni-dot"></div></button>
-      </div>
+      <!-- Bottom nav moved to phone level (always visible) -->
     </div>
 
     <div class="view" id="v-statistics">
@@ -632,6 +628,16 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- Bottom nav (shown only after login; switches with role) -->
+  <div class="bnav" id="global-bnav" style="display:none">
+    <div style="display:none" id="bn-user-role-guard"></div>
+    <button class="bni on" id="bn-home" onclick="goView('v-dash');switchTab('home')"><span class="ico">🏠</span><span class="lbl">হোম</span><div class="bni-dot"></div></button>
+    <button class="bni" id="bn-surveys" onclick="goView('v-statistics');switchTab('surveys')"><span class="ico">📊</span><span class="lbl">পরিসংখ্যান</span><div class="bni-dot"></div></button>
+    <button class="bni" id="bn-manpower" onclick="goView('v-manpower');switchTab('manpower')"><span class="ico">👥</span><span class="lbl">জনবল</span><div class="bni-dot"></div></button>
+    <button class="bni" id="bn-crop" onclick="goView('v-crop'); if(typeof initCropView==='function') initCropView(); switchTab('crop')"><span class="ico">🌾</span><span class="lbl">ক্রপ ক্যা.</span><div class="bni-dot"></div></button>
+    <button class="bni" id="bn-profile" onclick="goView('v-profile');switchTab('profile')"><span class="ico">👤</span><span class="lbl">প্রোফাইল</span><div class="bni-dot"></div></button>
   </div>
 
   <div id="toast"></div>

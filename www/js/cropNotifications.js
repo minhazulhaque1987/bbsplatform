@@ -50,6 +50,10 @@ async function requestCropNotificationPermission() {
 /* ─────────────────── Toggle notifications ─────────────────── */
 
 async function toggleCropNotificationsNative() {
+  // If first open already set default to 'on', just proceed.
+  // Otherwise toggle based on current storage state.
+  // Allow “turn on by default” when app is first installed.
+  // (We still keep this function as the single source of truth.)
   const cur = localStorage.getItem(CROP_NOTIF_KEY) || 'off';
 
   if (cur === 'on') {
@@ -248,6 +252,19 @@ window.scheduleCropNotifications    = scheduleCropNotifications;
 /* ─────────────────── Initialize Capacitor Plugin Reference ─────────────────── */
 
 function initCropCapacitorNotif() {
+  // Ensure button UI and scheduling reflect the default-on behavior.
+  updateCropNotifBtnUI();
+
+  // Turn notifications ON by default on first app open.
+  // This is the “APK install” behavior requested by you.
+  try {
+    const isFirst = localStorage.getItem('bbs_crop_notif_first_open_v1') !== '1';
+    if (isFirst) {
+      localStorage.setItem(CROP_NOTIF_KEY, 'on');
+      localStorage.setItem('bbs_crop_notif_first_open_v1', '1');
+    }
+  } catch (e) {}
+
   if (_cropCapacitorNotifReady) return;
 
   if (isNativeApp()) {

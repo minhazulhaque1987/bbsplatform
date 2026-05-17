@@ -20,7 +20,43 @@ function applyUser(u) {
   // ─────────────────────────────────────────────────────────────────────
 
   CURRENT_USER = u;
+
+  // Bottom nav visibility controlled here.
+  const gnav = document.getElementById('global-bnav');
+  if (gnav) gnav.style.display = 'flex';
+
+  // Bottom nav buttons are fixed; however for admin users we can hide
+  // the employee-specific buttons if needed.
+  const isAdmin = u && u.role === 'admin';
+  const cropBtn = document.getElementById('bn-crop');
+  const profileBtn = document.getElementById('bn-profile');
+  if (cropBtn) cropBtn.style.display = isAdmin ? 'none' : '';
+  if (profileBtn) profileBtn.style.display = isAdmin ? 'none' : '';
+
+  // Active-state handling: show correct tab highlight based on current view.
+  // Crop shows the crop tab, profile shows profile, admin hides both.
+  const active = (window.getCurrentView && window.getCurrentView()) || '';
+  try {
+    const setOn = (id) => {
+      const btn = document.getElementById(id);
+      if (!btn) return;
+      btn.classList.toggle('on', true);
+    };
+    ['bn-home','bn-surveys','bn-manpower','bn-crop','bn-profile'].forEach(id=>{
+      const btn=document.getElementById(id);
+      if(btn) btn.classList.remove('on');
+    });
+
+    if (active === 'v-dash') document.getElementById('bn-home')?.classList.add('on');
+    else if (active === 'v-statistics') document.getElementById('bn-surveys')?.classList.add('on');
+    else if (active === 'v-manpower' || active === 'v-emp-detail') document.getElementById('bn-manpower')?.classList.add('on');
+    else if (active === 'v-crop') document.getElementById('bn-crop')?.classList.add('on');
+    else if (active === 'v-profile' || active === 'v-profile-edit') document.getElementById('bn-profile')?.classList.add('on');
+  } catch (e) {}
+
   const h = new Date().getHours();
+
+
   const gr = h<12?'শুভ সকাল,':h<17?'শুভ দুপুর,':'শুভ সন্ধ্যা,';
   document.getElementById('d-greeting').textContent = gr;
   document.getElementById('d-name').textContent = u.name;

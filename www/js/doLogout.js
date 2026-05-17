@@ -7,5 +7,7 @@ function doLogout() {
   clearErrs(); 
   authTab('login'); 
   goView('v-auth');
+  const gnav = document.getElementById('global-bnav');
+  if (gnav) gnav.style.display = 'none';
   toast('আপনি লগআউট করেছেন', 'success');
 }
