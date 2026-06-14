@@ -1,0 +1,25 @@
+{
+  "name": "bbs-app-version-7.4.2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean:www": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (Test-Path www) { Remove-Item -Recurse -Force www }; New-Item -ItemType Directory -Path www | Out-Null\"",
+    "copy:web": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Copy-Item index.html www\\index.html; Copy-Item css www\\css -Recurse; Copy-Item js www\\js -Recurse; Copy-Item resources www\\resources -Recurse; Copy-Item config www\\config -Recurse\"",
+    "sync:android": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"npm run clean:www; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npm run copy:web; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npx cap sync android\"",
+    "build:apk:debug": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"npm run sync:android; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; Set-Location android; .\\gradlew.bat assembleDebug\"",
+    "build:apk:release": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"npm run sync:android; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; Set-Location android; .\\gradlew.bat assembleRelease\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@capacitor/android": "^8.3.3",
+    "@capacitor/cli": "^8.3.3",
+    "@capacitor/core": "^8.3.3",
+    "@capacitor/local-notifications": "^8.2.0",
+    "pdf-parse": "^2.4.5",
+    "xlsx": "^0.18.5"
+  }
+}
